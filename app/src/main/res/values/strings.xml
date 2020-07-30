@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BOBO_hello</string>
+    <string name="helloText">HELLO! I\'m Bobo</string>
+    <string name="cityEnter">type CITY</string>
+    <string name="findCity">Find City</string>
+    <string name="cityChosen">moscow</string>
+    <string name="tempCurrent">25^C</string>
 </resources>
