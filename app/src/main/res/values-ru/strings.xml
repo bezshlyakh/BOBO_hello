@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BOBO_hello</string>
+    <string name="helloText">Привет! Я Бобо</string>
+    <string name="cityEnter">введи город</string>
+    <string name="findCity">найти город</string>
+    <string name="cityChosen">Москва</string>
+    <string name="tempCurrent">25^C</string>
+
+</resources>
