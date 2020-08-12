@@ -2,11 +2,11 @@
     <string name="app_name">BOBO_hello</string>
     <string name="helloText">"HELLO! I'm Bobo!\nI can tell You about weather!    "</string>
     <string name="cityEnter">type CITY</string>
-    <string name="choseCityText">Chose our city</string>
+    <string name="choseCityText">Chose Your city</string>
     <string name="findCity">Find City</string>
     <string name="outputUpperText">That is what I found on Your request!</string>
     <string name="cityChosen">moscow</string>
-    <string name="tempCurrent">25^C</string>
+    <string name="tempCurrent">25 °C</string>
     <string name="backToMainButton">Change city</string>
     <string name="radiobuttonCity1">Moscow</string>
     <string name="radiobuttonCity2">St.Petersburg</string>
@@ -16,6 +16,12 @@
     <string name="radiobuttonCity6">Paris</string>
     <string name="radiobuttonCity7">Madrid</string>
     <string name="radiobuttonCity8">Vienna</string>
+    <string name="windSpeed">wind: 3 m/sec</string>
+    <string name="chooseOptions">Choose options</string>
+    <string name="temperatureSwitch">Temperature</string>
+    <string name="windSpeedSwitch">Wind speed</string>
+    <string name="chooseOptionsToDisplay">Choose options to display</string>
+    <string name="submit">submit</string>
 
 
 </resources>

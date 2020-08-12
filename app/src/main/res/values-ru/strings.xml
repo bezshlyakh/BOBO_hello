@@ -7,7 +7,7 @@
     <string name="findCity">найти город</string>
     <string name="outputUpperText">Вот, что я нашел!</string>
     <string name="cityChosen">Москва</string>
-    <string name="tempCurrent">25^C</string>
+    <string name="tempCurrent">25 °C</string>
     <string name="backToMainButton">Сменить город</string>
     <string name="radiobuttonCity1">Москва</string>
     <string name="radiobuttonCity2">Санкт-Петербург</string>
@@ -17,6 +17,12 @@
     <string name="radiobuttonCity6">Париж</string>
     <string name="radiobuttonCity7">Мадрид</string>
     <string name="radiobuttonCity8">Венна</string>
+    <string name="windSpeed">ветер: 3 м/с</string>
+    <string name="chooseOptions">Настройки</string>
+    <string name="temperatureSwitch">Температура</string>
+    <string name="windSpeedSwitch">Скорость ветра</string>
+    <string name="chooseOptionsToDisplay">Выбери параметры для отображения</string>
+    <string name="submit">Применить настройки</string>
 
 
 </resources>

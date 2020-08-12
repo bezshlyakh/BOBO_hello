@@ -12,58 +12,116 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/greenBoarder"
+        app:layout_constraintBottom_toTopOf="@id/mainOutputPan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1"
+        app:layout_constraintVertical_weight="4"
         app:srcCompat="@drawable/top_background"
         tools:ignore="ContentDescription" />
-
-    <View
-        android:id="@+id/greenBoarder"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/lightGreen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBackground"
-        app:layout_constraintVertical_weight="1" />
 
     <View
         android:id="@+id/mainOutputPan"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/bodyMain"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/scrollForCities"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="@+id/greenBoarder"
-        app:layout_constraintTop_toBottomOf="@+id/topBackground" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBackground"
+        app:layout_constraintVertical_weight="1" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxHeight="100dp"
-        app:layout_constraintEnd_toEndOf="@+id/mainOutputPan"
-        app:layout_constraintStart_toStartOf="@+id/mainOutputPan"
-        app:layout_constraintTop_toTopOf="@+id/mainOutputPan">
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="@+id/mainOutputPan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/bobo_weather"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/OptionsTopText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:foregroundTint="@color/lightGreen"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:text="@string/helloText"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/DarkMain"
+        android:textColorHighlight="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
+        app:layout_constraintEnd_toStartOf="@+id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toMainBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/findCity"
+        app:layout_constraintBottom_toTopOf="@id/optionsBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollForCities"
+        app:layout_constraintVertical_weight="1" />
+
+    <Button
+        android:id="@+id/optionsBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/LightBlueMain"
+        android:text="@string/chooseOptions"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toMainBtn"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/chosenCityText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/choseCityText"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/DarkMain"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/mainOutputPan"
+        app:layout_constraintEnd_toStartOf="@id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainOutputPan" />
+
+
+    <ScrollView
+        android:id="@+id/scrollForCities"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/bodyMain"
+        app:layout_constraintBottom_toTopOf="@id/toMainBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainOutputPan"
+        app:layout_constraintVertical_weight="7">
 
         <RadioGroup
             android:id="@+id/groupOfCities"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="@+id/mainOutputPan"
             app:layout_constraintStart_toStartOf="@+id/mainOutputPan"
-            app:layout_constraintTop_toBottomOf="@+id/choseCityText">
+            app:layout_constraintTop_toBottomOf="@id/mainOutputPan">
 
             <RadioButton
                 android:id="@+id/city1"
@@ -92,66 +150,10 @@
             <RadioButton
                 android:id="@+id/city5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/radiobuttonCity5" />
+
         </RadioGroup>
-
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/mainOutputPan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/bobo_weather"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/HelloTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:foregroundTint="@color/lightGreen"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:text="@string/helloText"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/DarkMain"
-        android:textColorHighlight="@color/colorAccent"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/logo"
-        app:layout_constraintStart_toStartOf="@id/topBackground"
-        app:layout_constraintTop_toTopOf="@+id/topBackground" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_light"
-        android:text="@string/findCity"
-        app:layout_constraintBottom_toBottomOf="@+id/mainOutputPan"
-        app:layout_constraintEnd_toEndOf="@+id/mainOutputPan"
-        app:layout_constraintStart_toEndOf="@+id/scrollView2"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-
-    <TextView
-        android:id="@+id/choseCityText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/choseCityText"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/DarkMain"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

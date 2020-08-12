@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/greenBoarder"
+        app:layout_constraintBottom_toTopOf="@id/outputScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,40 +21,12 @@
         app:srcCompat="@drawable/top_background"
         tools:ignore="ContentDescription" />
 
-    <View
-        android:id="@+id/greenBoarder"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/lightGreen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBackground"
-        app:layout_constraintVertical_weight="3" />
-
-    <View
-        android:id="@+id/mainOutputPan"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/bodyMain"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/greenBoarder"
-        app:layout_constraintTop_toBottomOf="@+id/topBackground"
-        app:layout_constraintVertical_bias="0.0" />
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/mainOutputPan"
+        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/bobo_weather"
         tools:ignore="ContentDescription" />
@@ -63,7 +35,6 @@
         android:id="@+id/outputUpperText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:foregroundTint="@color/lightGreen"
         android:shadowColor="@color/colorPrimaryDark"
         android:text="@string/outputUpperText"
@@ -73,61 +44,74 @@
         android:textColorHighlight="@color/colorAccent"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/backToMainButton"
-        app:layout_constraintEnd_toStartOf="@+id/logo"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/mainOutputPan" />
-
-    <Button
-        android:id="@+id/backToMainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_light"
-        android:text="@string/backToMainButton"
         app:layout_constraintBottom_toBottomOf="@+id/topBackground"
         app:layout_constraintEnd_toStartOf="@+id/logo"
-        app:layout_constraintStart_toStartOf="@+id/mainOutputPan" />
-
-    <TextView
-        android:id="@+id/choseCityText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/cityChosen"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/DarkMain"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainOutputPan" />
+        app:layout_constraintTop_toTopOf="@id/topBackground" />
 
-    <TextView
-        android:id="@+id/tempText"
-        android:layout_width="0dp"
+    <ScrollView
+        android:id="@+id/outputScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="2"
+        app:layout_constraintTop_toBottomOf="@id/topBackground"
+        app:layout_constraintBottom_toTopOf="@id/ChangeCityButton">
+
+        <LinearLayout
+            android:id="@+id/outputPan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bodyMain"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/chosenCityText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/DarkMain"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tempText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/DarkMain"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/windSpeedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/DarkMain"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/weatherImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/rain_sun"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/ChangeCityButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tempCurrent"
-        android:textAlignment="center"
-        android:textColor="@color/DarkMain"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/mainOutputPan"
-        app:layout_constraintEnd_toStartOf="@+id/weatherImg"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/backToMainButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choseCityText" />
-
-    <ImageView
-        android:id="@+id/weatherImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/mainOutputPan"
-        app:layout_constraintEnd_toEndOf="@+id/mainOutputPan"
-        app:layout_constraintTop_toBottomOf="@+id/choseCityText"
-        app:srcCompat="@drawable/rain_sun"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toBottomOf="@id/outputScroll"
+        app:layout_constraintVertical_weight="2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
