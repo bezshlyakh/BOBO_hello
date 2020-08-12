@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BOBO_hello</string>
-    <string name="helloText">Привет! Я Бобо</string>
+    <string name="helloText">Привет! Я Бобо!\nЯ расскажу тебе про погоду!</string>
     <string name="cityEnter">введи город</string>
+    <string name="choseCityText">Выбери город</string>
     <string name="findCity">найти город</string>
+    <string name="outputUpperText">Вот, что я нашел!</string>
     <string name="cityChosen">Москва</string>
     <string name="tempCurrent">25^C</string>
+    <string name="backToMainButton">Сменить город</string>
+    <string name="radiobuttonCity1">Москва</string>
+    <string name="radiobuttonCity2">Санкт-Петербург</string>
+    <string name="radiobuttonCity3">Томск</string>
+    <string name="radiobuttonCity4">Владивосток</string>
+    <string name="radiobuttonCity5">Мюнхен</string>
+    <string name="radiobuttonCity6">Париж</string>
+    <string name="radiobuttonCity7">Мадрид</string>
+    <string name="radiobuttonCity8">Венна</string>
+
 
 </resources>

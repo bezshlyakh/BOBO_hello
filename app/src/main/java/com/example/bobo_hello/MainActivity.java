@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
     private Button submitButton;
-    private TextView getCityText;
-    private TextView cityName;
+    private RadioButton chosenCityRBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView(){
         submitButton = findViewById(R.id.submitButton);
-        getCityText = findViewById(R.id.enterTextField);
-        cityName = findViewById(R.id.cityOutput);
+        RadioGroup rgCities = findViewById(R.id.groupOfCities);
+        chosenCityRBtn = findViewById(rgCities.getCheckedRadioButtonId());
     }
 
     private void onBtnClickAction(){
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cityName.setText(getCityText.getText());
-                getCityText.setText("");
+                //String city = (String) chosenCityRBtn.getText();
             }
         });
     }
