@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Objects;
 
+import com.example.bobo_hello.MainActivity;
+import com.example.bobo_hello.OptionsContainer;
 import com.example.bobo_hello.R;
 import com.example.bobo_hello.WeatherActivity;
 import com.example.bobo_hello.WeatherInfoContainer;
@@ -41,12 +43,6 @@ public class CitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         initList();
-
-        if (getArguments() != null) {
-            tempOn = getArguments().getBoolean("tempKey", true);
-            windOn = getArguments().getBoolean("windKey", true);
-        }
-
     }
 
     @Override
@@ -68,6 +64,11 @@ public class CitiesFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt("CurrentCity", currentPosition);
         super.onSaveInstanceState(outState);
+    }
+
+    public void update(OptionsContainer optionsContainer) {
+        tempOn = optionsContainer.isTempOn;
+        windOn = optionsContainer.isWindOn;
     }
 
     private void initViews(View view) {

@@ -48,28 +48,20 @@
         android:background="@color/LightBlueMain"
         android:text="@string/chooseOptions"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LOForCities"
+        app:layout_constraintTop_toBottomOf="@id/cities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_weight="1"/>
 
     <FrameLayout
-        android:id="@+id/LOForCities"
-        android:layout_width="0px"
+        android:id="@+id/cities"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBackground"
         app:layout_constraintBottom_toTopOf="@id/optionsBtn"
-        app:layout_constraintVertical_weight="1">
-
-        <fragment android:name="com.example.bobo_hello.fragments.CitiesFragment"
-            android:id="@+id/cities"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_cities" />
-
-    </FrameLayout>
+        app:layout_constraintVertical_weight="1"/>
 
     <ImageView
         android:id="@+id/logo"

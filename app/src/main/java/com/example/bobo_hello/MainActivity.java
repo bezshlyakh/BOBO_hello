@@ -1,11 +1,10 @@
 package com.example.bobo_hello;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import com.example.bobo_hello.fragments.CitiesFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Button optionsButton;
-    //final static String CITY_KEY = "cityKey";
     final static int REQUEST_CODE = 1;
     private boolean tempOn = true, windOn = true;
     static final String IS_TEMP_ON = "is_temp_on", IS_WIND_ON = "is_wind_on";
@@ -40,6 +38,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCitiesFragWithOptions();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(IS_TEMP_ON, tempOn);
+        outState.putBoolean(IS_WIND_ON, windOn);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        tempOn = savedInstanceState.getBoolean(IS_TEMP_ON);
+        windOn = savedInstanceState.getBoolean(IS_WIND_ON);
+    }
+
     private void initView(){
         optionsButton = findViewById(R.id.optionsBtn);
     }
@@ -49,18 +67,23 @@ public class MainActivity extends AppCompatActivity {
             Intent toOptionsDispIntent = new Intent(MainActivity.this, OptionsActivity.class);
             startActivityForResult(toOptionsDispIntent, REQUEST_CODE);
         });
-        saveOptionsToBundle();
     }
 
-    private void saveOptionsToBundle() {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("tempKey", tempOn);
-        bundle.putBoolean("windKey", windOn);
-        android.app.Fragment fragInfo = new android.app.Fragment();
-        fragInfo.setArguments(bundle);
-        @SuppressLint("CommitTransaction") FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.cities, fragInfo);
+    private void updateCitiesFragWithOptions() {
+        CitiesFragment fragment = new CitiesFragment();
+        fragment.update(createOptionContainer());
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.cities, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack("Some_Key_2");
         ft.commit();
+    }
+
+    private OptionsContainer createOptionContainer() {
+        OptionsContainer container = new OptionsContainer();
+        container.isTempOn = tempOn;
+        container.isWindOn = windOn;
+        return container;
     }
 
 
