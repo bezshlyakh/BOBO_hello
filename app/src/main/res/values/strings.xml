@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BOBO_hello</string>
-    <string name="helloText">"HELLO! I'm Bobo!\nI can tell You about weather!    "</string>
+    <string name="helloText">"HELLO! I'm Bobo!\nI can tell You\n about weather!"</string>
+    <string name="helloTextLand">"HELLO! I'm Bobo!\nI can tell You about weather!"</string>
     <string name="cityEnter">type CITY</string>
     <string name="choseCityText">Chose Your city</string>
     <string name="findCity">Find City</string>
@@ -22,6 +23,8 @@
     <string name="windSpeedSwitch">Wind speed</string>
     <string name="chooseOptionsToDisplay">Choose options to display</string>
     <string name="submit">submit</string>
+    <string name="weather_img">weather_img</string>
+    <string name="empty_text">list is empty</string>
 
 
 </resources>

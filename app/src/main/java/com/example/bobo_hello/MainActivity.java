@@ -2,22 +2,21 @@ package com.example.bobo_hello;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+
+import com.example.bobo_hello.fragments.CitiesFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private Button submitButton;
     private Button optionsButton;
-    private RadioGroup rgCities;
-    private RadioButton chosenCityRBtn;
-    final static String CITY_KEY = "cityKey";
+    //final static String CITY_KEY = "cityKey";
     final static int REQUEST_CODE = 1;
-    private boolean tempOn, windOn;
+    private boolean tempOn = true, windOn = true;
     static final String IS_TEMP_ON = "is_temp_on", IS_WIND_ON = "is_wind_on";
 
     @Override
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        onSubmitBtnClickAction();
         onOptionsBtnClickAction();
     }
 
@@ -43,25 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        submitButton = findViewById(R.id.toMainBtn);
         optionsButton = findViewById(R.id.optionsBtn);
-        rgCities = findViewById(R.id.groupOfCities);
-    }
-
-    private void onSubmitBtnClickAction(){
-        submitButton.setOnClickListener(view -> {
-            chosenCityRBtn = findViewById(rgCities.getCheckedRadioButtonId());
-            if(chosenCityRBtn != null){
-                String city = (String) chosenCityRBtn.getText();
-                Intent toWeatherDispIntent = new Intent(MainActivity.this, WeatherActivity.class);
-                toWeatherDispIntent.putExtra(CITY_KEY, city);
-                toWeatherDispIntent.putExtra(IS_TEMP_ON, tempOn);
-                toWeatherDispIntent.putExtra(IS_WIND_ON, windOn);
-                startActivity(toWeatherDispIntent);
-            } else {
-                Toast.makeText(getApplicationContext(),"Chose any city first", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void onOptionsBtnClickAction() {
@@ -69,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
             Intent toOptionsDispIntent = new Intent(MainActivity.this, OptionsActivity.class);
             startActivityForResult(toOptionsDispIntent, REQUEST_CODE);
         });
+        saveOptionsToBundle();
     }
+
+    private void saveOptionsToBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("tempKey", tempOn);
+        bundle.putBoolean("windKey", windOn);
+        android.app.Fragment fragInfo = new android.app.Fragment();
+        fragInfo.setArguments(bundle);
+        @SuppressLint("CommitTransaction") FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.cities, fragInfo);
+        ft.commit();
+    }
+
 
 }

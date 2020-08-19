@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="cities">
+        <item>Moscow</item>
+        <item>S.-Petersburg</item>
+        <item>Tomsk</item>
+        <item>Vladivostok</item>
+        <item>Munich</item>
+    </string-array>
+
+    <string-array name="temperature">
+        <item>25 °C</item>
+        <item>20 °C</item>
+        <item>15 °C</item>
+        <item>30 °C</item>
+        <item>27 °C</item>
+    </string-array>
+
+    <string-array name="wind">
+        <item>3 m/s</item>
+        <item>2 m/s</item>
+        <item>1 m/s</item>
+        <item>5 m/s</item>
+        <item>4 m/s</item>
+    </string-array>
+
+    <integer-array name="weather_imgs">
+        <item>@drawable/light_rain</item>
+        <item>@drawable/partly_sunny</item>
+        <item>@drawable/sun_rain</item>
+        <item>@drawable/sunny</item>
+        <item>@drawable/thunder</item>
+    </integer-array>
+
+</resources>

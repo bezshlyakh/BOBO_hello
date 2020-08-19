@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BOBO_hello</string>
-    <string name="helloText">Привет! Я Бобо!\nЯ расскажу тебе про погоду!</string>
+    <string name="helloText">Привет! Я Бобо!\nЯ расскажу тебе\n про погоду!</string>
     <string name="cityEnter">введи город</string>
     <string name="choseCityText">Выбери город</string>
     <string name="findCity">найти город</string>
@@ -23,6 +23,8 @@
     <string name="windSpeedSwitch">Скорость ветра</string>
     <string name="chooseOptionsToDisplay">Выбери параметры для отображения</string>
     <string name="submit">Применить настройки</string>
+    <string name="weather_img">weather_img</string>
+    <string name="empty_text">empty_text</string>
 
 
 </resources>
