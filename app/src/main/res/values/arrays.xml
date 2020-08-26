@@ -25,12 +25,4 @@
         <item>4 m/s</item>
     </string-array>
 
-    <integer-array name="weather_imgs">
-        <item>@drawable/light_rain</item>
-        <item>@drawable/partly_sunny</item>
-        <item>@drawable/sun_rain</item>
-        <item>@drawable/sunny</item>
-        <item>@drawable/thunder</item>
-    </integer-array>
-
 </resources>

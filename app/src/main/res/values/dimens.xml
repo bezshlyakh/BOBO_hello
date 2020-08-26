@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimenCityItem">32sp</dimen>
+    <dimen name="dimenCityItem">24sp</dimen>
 </resources>

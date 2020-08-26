@@ -1,18 +1,17 @@
 package com.example.bobo_hello.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.bobo_hello.Classifier;
 import com.example.bobo_hello.R;
 import com.example.bobo_hello.WeatherInfoContainer;
 
@@ -21,7 +20,7 @@ import java.util.Objects;
 public class WeatherInfoFragment extends Fragment {
     private TextView cityNameTextView, tempTextView, windTextView;
     private ImageView weatherImgView;
-    private boolean tempOn, windOn;
+    //private boolean tempOn, windOn;
 
     static WeatherInfoFragment create(WeatherInfoContainer weatherContainer) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();
@@ -52,14 +51,53 @@ public class WeatherInfoFragment extends Fragment {
             return "";
         }
     }
-
-    void getOptions(){
+    String getTemperature() {
         WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
                 .getSerializable("index"));
-            assert weatherInfoContainer != null;
-            tempOn = weatherInfoContainer.isTempOn;
-            windOn = weatherInfoContainer.isWindOn;
+        assert weatherInfoContainer != null;
+        if (weatherInfoContainer.isTempOn){
+            return weatherInfoContainer.temperature + " °C";
+        } else return "";
     }
+
+    String getWindSpeed() {
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+                .getSerializable("index"));
+        assert weatherInfoContainer != null;
+        if (weatherInfoContainer.isWindOn){
+            return weatherInfoContainer.windSpeed + " °C";
+        } else return "";
+    }
+
+    String getIcon() {
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+                .getSerializable("index"));
+        try {
+            assert weatherInfoContainer != null;
+            String str = weatherInfoContainer.icon;
+            return str.toLowerCase();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    Classifier getClassifier() {
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+                .getSerializable("index"));
+        try {
+            assert weatherInfoContainer != null;
+            return weatherInfoContainer.classifier;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+//    void getOptions(){
+//        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+//                .getSerializable("index"));
+//            assert weatherInfoContainer != null;
+//            tempOn = weatherInfoContainer.isTempOn;
+//            windOn = weatherInfoContainer.isWindOn;
+//    }
 
     @Override
     @SuppressLint("Recycle")
@@ -72,6 +110,7 @@ public class WeatherInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+//        getOptions();
         setWeatherInfo();
     }
 
@@ -84,28 +123,14 @@ public class WeatherInfoFragment extends Fragment {
 
     private void setWeatherInfo(){
         cityNameTextView.setText(getCityName());
-        getOptions();
-        setTempInfo();
-        setWindInfo();
+        tempTextView.setText(getTemperature());
+        windTextView.setText(getWindSpeed());
         setWeatherImg();
     }
 
     private void setWeatherImg() {
-        @SuppressLint("Recycle") TypedArray images = getResources().obtainTypedArray(R.array.weather_imgs);
-        weatherImgView.setImageResource(images.getResourceId(getIndex(), -1));
-    }
-
-    private void setTempInfo() {
-        @SuppressLint("Recycle") TypedArray tempArr = getResources().obtainTypedArray(R.array.temperature);
-        if(tempOn){
-            tempTextView.setText(tempArr.getString(getIndex()));
-        } else tempTextView.setText("");
-    }
-
-    private void setWindInfo() {
-        @SuppressLint("Recycle") TypedArray windArr = getResources().obtainTypedArray(R.array.wind);
-        if(windOn){
-            windTextView.setText(windArr.getString(getIndex()));
-        } else windTextView.setText("");
+        String iconName = getClassifier().getIconName(getIcon());
+        int id = getResources().getIdentifier("com.example.bobo_hello:drawable/" + iconName, null, null);
+        weatherImgView.setImageResource(id);
     }
 }
