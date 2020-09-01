@@ -1,4 +1,4 @@
-package com.example.bobo_hello;
+package com.example.bobo_hello.Utils;
 
 import android.util.Log;
 import com.example.bobo_hello.weatherModel.WeatherRequest;
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Locale;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class OneDayWeatherConnector {

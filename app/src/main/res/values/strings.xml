@@ -25,6 +25,15 @@
     <string name="submit">submit</string>
     <string name="weather_img">weather_img</string>
     <string name="empty_text">list is empty</string>
+    <string name="menu_home">HOME</string>
+    <string name="menu_options">SETTINGS</string>
+    <string name="menu_info">APP INFO</string>
+    <string name="InfoAppText">info about this App</string>
+    <string name="nav_header_desc">logo</string>
+    <string name="nav_header_title">Hello! I\'m BOBO</string>
+    <string name="Hello_sub_text">I can show You the weather</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
 </resources>

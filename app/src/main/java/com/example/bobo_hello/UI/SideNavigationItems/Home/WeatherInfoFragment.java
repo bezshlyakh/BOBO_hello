@@ -1,4 +1,4 @@
-package com.example.bobo_hello.fragments;
+package com.example.bobo_hello.UI.SideNavigationItems.Home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,17 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.bobo_hello.Classifier;
+import com.example.bobo_hello.Utils.Classifier;
 import com.example.bobo_hello.R;
-import com.example.bobo_hello.WeatherInfoContainer;
+import com.example.bobo_hello.Utils.WeatherInfoContainer;
 
 import java.util.Objects;
 
 public class WeatherInfoFragment extends Fragment {
     private TextView cityNameTextView, tempTextView, windTextView;
     private ImageView weatherImgView;
-    //private boolean tempOn, windOn;
 
     static WeatherInfoFragment create(WeatherInfoContainer weatherContainer) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();
@@ -65,7 +63,7 @@ public class WeatherInfoFragment extends Fragment {
                 .getSerializable("index"));
         assert weatherInfoContainer != null;
         if (weatherInfoContainer.isWindOn){
-            return weatherInfoContainer.windSpeed + " °C";
+            return weatherInfoContainer.windSpeed + " m/s";
         } else return "";
     }
 
@@ -91,14 +89,6 @@ public class WeatherInfoFragment extends Fragment {
             return null;
         }
     }
-//    void getOptions(){
-//        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
-//                .getSerializable("index"));
-//            assert weatherInfoContainer != null;
-//            tempOn = weatherInfoContainer.isTempOn;
-//            windOn = weatherInfoContainer.isWindOn;
-//    }
-
     @Override
     @SuppressLint("Recycle")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -110,7 +100,6 @@ public class WeatherInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-//        getOptions();
         setWeatherInfo();
     }
 

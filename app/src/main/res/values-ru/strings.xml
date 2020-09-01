@@ -25,6 +25,14 @@
     <string name="submit">Применить настройки</string>
     <string name="weather_img">weather_img</string>
     <string name="empty_text">empty_text</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_options">Настройки</string>
+    <string name="menu_info">О приложении</string>
+    <string name="InfoAppText">Инофрмация о приложении</string>
+    <string name="nav_header_title">Привет! Я Бобо</string>
+    <string name="Hello_sub_text">Я могу рассказать тебе о погоде</string>
+    <string name="nav_header_desc">лого</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
 
 
 </resources>

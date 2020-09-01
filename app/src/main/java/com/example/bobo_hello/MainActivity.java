@@ -1,90 +1,88 @@
 package com.example.bobo_hello;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
-import com.example.bobo_hello.fragments.CitiesFragment;
+import com.example.bobo_hello.UI.SideNavigationItems.AppInfo.AppInfoFragment;
+import com.example.bobo_hello.UI.SideNavigationItems.Home.HomeFragment;
+import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button optionsButton;
-    final static int REQUEST_CODE = 1;
-    private boolean tempOn = true, windOn = true;
-    static final String IS_TEMP_ON = "is_temp_on", IS_WIND_ON = "is_wind_on";
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-        onOptionsBtnClickAction();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        setHomeFragment();
+        setOnClickForSideMenuItems();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode != REQUEST_CODE) {
-            super.onActivityResult(requestCode, resultCode, data);
-            return;
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            navigationView.setCheckedItem(R.id.nav_home);
         }
-
-        if(resultCode == RESULT_OK && data != null){
-            tempOn = data.getBooleanExtra(IS_TEMP_ON, true);
-            windOn = data.getBooleanExtra(IS_WIND_ON, true);
-        }
+        super.onBackPressed();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateCitiesFragWithOptions();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(IS_TEMP_ON, tempOn);
-        outState.putBoolean(IS_WIND_ON, windOn);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        tempOn = savedInstanceState.getBoolean(IS_TEMP_ON);
-        windOn = savedInstanceState.getBoolean(IS_WIND_ON);
-    }
-
-    private void initView(){
-        optionsButton = findViewById(R.id.optionsBtn);
-    }
-
-    private void onOptionsBtnClickAction() {
-        optionsButton.setOnClickListener(view -> {
-            Intent toOptionsDispIntent = new Intent(MainActivity.this, OptionsActivity.class);
-            startActivityForResult(toOptionsDispIntent, REQUEST_CODE);
+    private void setOnClickForSideMenuItems() {
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.nav_home: {
+                    setHomeFragment();
+                    drawer.closeDrawers();
+                    break;
+                }
+                case R.id.nav_settings: {
+                    setOptionsFragment();
+                    drawer.closeDrawers();
+                    break;
+                }
+                case R.id.nav_app_info: {
+                    setAppInfoFragment();
+                    drawer.closeDrawers();
+                    break;
+                }
+            }
+            return true;
         });
     }
 
-    private void updateCitiesFragWithOptions() {
-        CitiesFragment fragment = new CitiesFragment();
-        fragment.update(createOptionContainer());
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.cities, fragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack("Some_Key_2");
-        ft.commit();
+    private void setHomeFragment() {
+        HomeFragment fragment = new HomeFragment();
+        setFragment(fragment);
     }
 
-    private OptionsContainer createOptionContainer() {
-        OptionsContainer container = new OptionsContainer();
-        container.isTempOn = tempOn;
-        container.isWindOn = windOn;
-        return container;
+    private void setOptionsFragment() {
+        setFragment(new OptionsFragment());
     }
 
+    private void setAppInfoFragment() {
+        setFragment(new AppInfoFragment());
+    }
 
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.appFragmentContainer, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 }

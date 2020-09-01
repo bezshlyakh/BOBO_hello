@@ -1,4 +1,4 @@
-package com.example.bobo_hello;
+package com.example.bobo_hello.Utils;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bobo_hello.R;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
-package com.example.bobo_hello.fragments;
+package com.example.bobo_hello.UI.SideNavigationItems.Home;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +13,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import com.example.bobo_hello.Classifier;
-import com.example.bobo_hello.IRVOnItemClick;
-import com.example.bobo_hello.OneDayWeatherConnector;
-import com.example.bobo_hello.OptionsContainer;
+import com.example.bobo_hello.Utils.Classifier;
+import com.example.bobo_hello.Utils.IRVOnItemClick;
+import com.example.bobo_hello.Utils.OneDayWeatherConnector;
+import com.example.bobo_hello.Utils.OptionsContainer;
 import com.example.bobo_hello.R;
-import com.example.bobo_hello.RecyclerDataAdapter;
+import com.example.bobo_hello.Utils.RecyclerDataAdapter;
 import com.example.bobo_hello.WeatherActivity;
-import com.example.bobo_hello.WeatherInfoContainer;
+import com.example.bobo_hello.Utils.WeatherInfoContainer;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class CitiesFragment extends Fragment implements IRVOnItemClick {
     private RecyclerView recyclerView;
-    private boolean tempOn = true, windOn = true;
-    private boolean isExistWeatherDisp;
+    //private boolean tempOn = true, windOn = true;
     private int currentPosition = 0;
     private String currentCity = "";
     private Classifier classifier;
@@ -44,27 +44,21 @@ public class CitiesFragment extends Fragment implements IRVOnItemClick {
         initViews(view);
         classifier = new Classifier();
         setupCitiesRecycler(classifier);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        isExistWeatherDisp = getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE;
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt("CurrentPos", 0);
             currentCity = savedInstanceState.getString("CurrentCity");
-
-        }
-        if (isExistWeatherDisp) {
-            assert currentCity != null;
-            if(!currentCity.equals("")){
-            showWeatherDisp(new OneDayWeatherConnector(classifier, currentCity));
-            }
         }
     }
 
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        if (savedInstanceState != null) {
+//            currentPosition = savedInstanceState.getInt("CurrentPos", 0);
+//            currentCity = savedInstanceState.getString("CurrentCity");
+//        }
+//    }
+//
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt("CurrentPos", currentPosition);
@@ -72,10 +66,23 @@ public class CitiesFragment extends Fragment implements IRVOnItemClick {
         super.onSaveInstanceState(outState);
     }
 
-    public void update(OptionsContainer optionsContainer) {
-        tempOn = optionsContainer.isTempOn;
-        windOn = optionsContainer.isWindOn;
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        EventBus.getDefault().unregister(this);
+//        super.onStop();
+//    }
+//
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onOptionsContainer(OptionsContainer optionsContainer){
+//        tempOn = optionsContainer.isTempOn;
+//        windOn = optionsContainer.isWindOn;
+//    }
 
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.cities_menu);
@@ -89,26 +96,26 @@ public class CitiesFragment extends Fragment implements IRVOnItemClick {
         recyclerView.setAdapter(adapter);
     }
 
-    private void showWeatherDisp(OneDayWeatherConnector connector) {
-        if (isExistWeatherDisp) {
-            WeatherInfoFragment detail = (WeatherInfoFragment)
-                    Objects.requireNonNull(getFragmentManager()).findFragmentById(R.id.weather_info);
-
-            if (detail == null || detail.getIndex() != currentPosition) {
-                detail = WeatherInfoFragment.create(getWeatherContainer(connector));
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.weather_info, detail);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack("Some_Key");
-                ft.commit();
-            }
-        } else {
-            Intent intent = new Intent();
-            intent.setClass(Objects.requireNonNull(getActivity()), WeatherActivity.class);
-            intent.putExtra("index", getWeatherContainer(connector));
-            startActivity(intent);
-        }
-    }
+//    private void showWeatherDisp(OneDayWeatherConnector connector) {
+//        if (isExistWeatherDisp) {
+//            WeatherInfoFragment detail = (WeatherInfoFragment)
+//                    Objects.requireNonNull(getFragmentManager()).findFragmentById(R.id.weather_info);
+//
+//            if (detail == null || detail.getIndex() != currentPosition) {
+//                detail = WeatherInfoFragment.create(getWeatherContainer(connector));
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.replace(R.id.weather_info, detail);
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.addToBackStack("Some_Key");
+//                ft.commit();
+//            }
+//        } else {
+//            Intent intent = new Intent();
+//            intent.setClass(Objects.requireNonNull(getActivity()), WeatherActivity.class);
+//            intent.putExtra("index", getWeatherContainer(connector));
+//            startActivity(intent);
+//        }
+//    }
 
     private WeatherInfoContainer getWeatherContainer(OneDayWeatherConnector connector) {
         WeatherInfoContainer container = new WeatherInfoContainer();
@@ -117,8 +124,8 @@ public class CitiesFragment extends Fragment implements IRVOnItemClick {
         container.temperature = connector.getTemperature();
         container.windSpeed = connector.getWindSpeed();
         container.icon = connector.getIcon();
-        container.isTempOn = tempOn;
-        container.isWindOn = windOn;
+//        container.isTempOn = tempOn;
+//        container.isWindOn = windOn;
         container.classifier = classifier;
         return container;
     }
@@ -127,7 +134,8 @@ public class CitiesFragment extends Fragment implements IRVOnItemClick {
     public void onItemClicked(String cityItem, int position) {
         currentPosition = position;
         currentCity = cityItem;
-        showWeatherDisp(getWeatherInfoFromServer(currentCity));
+        EventBus.getDefault().post(getWeatherContainer(getWeatherInfoFromServer(currentCity)));
+        //showWeatherDisp(getWeatherInfoFromServer(currentCity));
     }
 
     private OneDayWeatherConnector getWeatherInfoFromServer(String cityItem) {
