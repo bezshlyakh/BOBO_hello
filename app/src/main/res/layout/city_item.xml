@@ -12,7 +12,7 @@
         android:background="?attr/selectableItemBackground"
         android:textSize="@dimen/dimenCityItem"
         android:textColor="@android:color/black"
-        android:lines="2"
+        android:lines="1"
         tools:ignore="MissingConstraints" />
 
 </FrameLayout>

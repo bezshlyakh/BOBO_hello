@@ -32,7 +32,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setTextToTextView(data.get(position));
-        holder.setOnClickForItem(data.get(position), position);
+        holder.setOnClickForItem(data.get(position));
     }
 
     @Override
@@ -52,10 +52,10 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             textView.setText(text);
         }
 
-        void setOnClickForItem(final String text, int position) {
+        void setOnClickForItem(final String text) {
             textView.setOnClickListener(view -> {
                 if(onItemClickCallback != null) {
-                    onItemClickCallback.onItemClicked(text, position);
+                    onItemClickCallback.onItemClicked(text);
                 }
             });
         }

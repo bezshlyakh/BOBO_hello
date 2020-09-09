@@ -11,5 +11,9 @@
     <dimen name="TempTextSize">40sp</dimen>
     <dimen name="WindTextSize">16sp</dimen>
     <dimen name="choseCityText">16sp</dimen>
+    <dimen name="changeCityBtnText">16sp</dimen>
+    <dimen name="fab_margin">10dp</dimen>
+    <dimen name="start_margin">16dp</dimen>
+    <dimen name="weatherImgSize">128dp</dimen>
 
 </resources>

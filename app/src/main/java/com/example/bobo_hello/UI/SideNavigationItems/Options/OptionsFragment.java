@@ -1,5 +1,7 @@
 package com.example.bobo_hello.UI.SideNavigationItems.Options;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-import com.example.bobo_hello.Utils.OptionsContainer;
 import com.example.bobo_hello.R;
-import org.greenrobot.eventbus.EventBus;
 
 public class OptionsFragment extends Fragment {
 
@@ -27,12 +27,7 @@ public class OptionsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        if(savedInstanceState!= null){
-            setOptions(savedInstanceState);
-        } else {
-            tempSwitch.setChecked(true);
-            windSwitch.setChecked(true);
-        }
+        setOptions();
     }
 
     private void initViews(View view){
@@ -40,25 +35,26 @@ public class OptionsFragment extends Fragment {
         windSwitch = view.findViewById(R.id.windSwitch);
     }
 
-    public void setOptions(@Nullable Bundle savedInstanceState){
-        assert savedInstanceState != null;
-        tempSwitch.setChecked(savedInstanceState.getBoolean(IS_TEMP_ON));
-        windSwitch.setChecked(savedInstanceState.getBoolean(IS_WIND_ON));
+    public void setOptions(){
+        tempSwitch.setChecked(readFromPreference().getBoolean(IS_TEMP_ON, true));
+        windSwitch.setChecked(readFromPreference().getBoolean(IS_WIND_ON, true));
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        OptionsContainer optionsContainer = new OptionsContainer();
-        optionsContainer.isWindOn = windSwitch.isChecked();
-        optionsContainer.isTempOn = tempSwitch.isChecked();
-        EventBus.getDefault().post(optionsContainer);
+        saveOptionsToPreference();
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putBoolean(IS_TEMP_ON, tempSwitch.isChecked());
-        outState.putBoolean(IS_WIND_ON, windSwitch.isChecked());
-        super.onSaveInstanceState(outState);
+    private void saveOptionsToPreference() {
+        SharedPreferences optionsPref = requireActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = optionsPref.edit();
+        editor.putBoolean(IS_TEMP_ON, tempSwitch.isChecked());
+        editor.putBoolean(IS_WIND_ON, windSwitch.isChecked());
+        editor.apply();
+    }
+
+    private SharedPreferences readFromPreference() {
+        return requireActivity().getPreferences(Context.MODE_PRIVATE);
     }
 }

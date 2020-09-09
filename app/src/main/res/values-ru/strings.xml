@@ -33,6 +33,7 @@
     <string name="Hello_sub_text">Я могу рассказать тебе о погоде</string>
     <string name="nav_header_desc">лого</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="change_city">Change City</string>
 
 
 </resources>

@@ -6,17 +6,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import com.example.bobo_hello.UI.SideNavigationItems.AppInfo.AppInfoFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Home.HomeFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private CitiesFindDialogFragment findCityDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,29 @@ public class MainActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        findCityDialog = new CitiesFindDialogFragment();
         setHomeFragment();
         setOnClickForSideMenuItems();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_up_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_find_city) {
+            onClickCityDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickCityDialog() {
+        findCityDialog.show(getSupportFragmentManager(), "findCityDialog");
     }
 
     @Override
@@ -53,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.nav_settings: {
                     setOptionsFragment();
+                    drawer.closeDrawers();
+                    break;
+                }
+                case R.id.nav_history: {
+                    setAppInfoFragment();
                     drawer.closeDrawers();
                     break;
                 }

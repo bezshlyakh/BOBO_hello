@@ -14,15 +14,17 @@ public class OneDayWeatherConnector {
     private static final String TAG = "WEATHER";
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
     private static final String API_KEY = "3aa391c929cfb72a03bebcdf69fc4c8a";
+    private String cityName;
     private String cityId;
     private String temperature;
     private String pressure;
     private String humidity;
     private String windSpeed;
+    private int windDirection;
     private String icon;
 
     public OneDayWeatherConnector(Classifier classifier, String city) {
-
+        this.cityName = city;
         this.cityId = classifier.getCityID(city);
         try {
             if(cityId != null){
@@ -31,13 +33,11 @@ public class OneDayWeatherConnector {
                     public void run() {
                         HttpsURLConnection urlConnection = null;
                         try {
-                            System.out.println("Thread started");
                             urlConnection = (HttpsURLConnection) uri.openConnection();
                             urlConnection.setRequestMethod("GET");
                             urlConnection.setReadTimeout(10000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                             String result = getLines(in);
-                            System.out.println("Result is " + result);
                             Gson gson = new Gson();
                             final WeatherRequest weatherRequest = gson.fromJson(result, WeatherRequest.class);
                             setWeatherInfo(weatherRequest);
@@ -88,11 +88,16 @@ public class OneDayWeatherConnector {
         pressure = String.format(Locale.getDefault(), "%d", weatherRequest.getMain().getPressure());
         humidity = String.format(Locale.getDefault(), "%d", weatherRequest.getMain().getHumidity());
         windSpeed = String.format(Locale.getDefault(), "%.1f", weatherRequest.getWind().getSpeed());
+        windDirection = weatherRequest.getWind().getDeg();
         icon = String.valueOf(weatherRequest.getWeather()[0].getIcon());
     }
 
     public String getCityId(String city) {
         return cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
     }
 
     public String getTemperature() {
@@ -109,6 +114,10 @@ public class OneDayWeatherConnector {
 
     public String getWindSpeed() {
         return windSpeed;
+    }
+
+    public int getWindDirection() {
+        return windDirection;
     }
 
     public String getIcon() {

@@ -14,11 +14,9 @@ import com.example.bobo_hello.Utils.Classifier;
 import com.example.bobo_hello.R;
 import com.example.bobo_hello.Utils.WeatherInfoContainer;
 
-import java.util.Objects;
-
 public class WeatherInfoFragment extends Fragment {
     private TextView cityNameTextView, tempTextView, windTextView;
-    private ImageView weatherImgView;
+    private ImageView weatherImgView, windDirectionImg;
 
     static WeatherInfoFragment create(WeatherInfoContainer weatherContainer) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();
@@ -29,7 +27,7 @@ public class WeatherInfoFragment extends Fragment {
     }
 
     int getIndex() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
                 .getSerializable("index"));
         try {
             assert weatherInfoContainer != null;
@@ -40,7 +38,7 @@ public class WeatherInfoFragment extends Fragment {
     }
 
     String getCityName() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
                 .getSerializable("index"));
         try {
             assert weatherInfoContainer != null;
@@ -50,7 +48,7 @@ public class WeatherInfoFragment extends Fragment {
         }
     }
     String getTemperature() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
                 .getSerializable("index"));
         assert weatherInfoContainer != null;
         if (weatherInfoContainer.isTempOn){
@@ -59,7 +57,7 @@ public class WeatherInfoFragment extends Fragment {
     }
 
     String getWindSpeed() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
                 .getSerializable("index"));
         assert weatherInfoContainer != null;
         if (weatherInfoContainer.isWindOn){
@@ -68,7 +66,7 @@ public class WeatherInfoFragment extends Fragment {
     }
 
     String getIcon() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
                 .getSerializable("index"));
         try {
             assert weatherInfoContainer != null;
@@ -79,8 +77,15 @@ public class WeatherInfoFragment extends Fragment {
         }
     }
 
+    int getWindDirection() {
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
+                .getSerializable("index"));
+        assert weatherInfoContainer != null;
+        return weatherInfoContainer.windDirection;
+    }
+
     Classifier getClassifier() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (Objects.requireNonNull(getArguments())
+        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
                 .getSerializable("index"));
         try {
             assert weatherInfoContainer != null;
@@ -100,6 +105,11 @@ public class WeatherInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         setWeatherInfo();
     }
 
@@ -108,6 +118,7 @@ public class WeatherInfoFragment extends Fragment {
         tempTextView = view.findViewById(R.id.tempText);
         windTextView = view.findViewById(R.id.windSpeedText);
         weatherImgView = view.findViewById(R.id.weatherImg);
+        windDirectionImg = view.findViewById(R.id.windDirectionIndicator);
     }
 
     private void setWeatherInfo(){
@@ -115,11 +126,17 @@ public class WeatherInfoFragment extends Fragment {
         tempTextView.setText(getTemperature());
         windTextView.setText(getWindSpeed());
         setWeatherImg();
+        setWindImg();
     }
 
     private void setWeatherImg() {
         String iconName = getClassifier().getIconName(getIcon());
         int id = getResources().getIdentifier("com.example.bobo_hello:drawable/" + iconName, null, null);
         weatherImgView.setImageResource(id);
+    }
+
+    private void setWindImg(){
+        int windDirection = getWindDirection();
+        windDirectionImg.setRotation(windDirection);
     }
 }

@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- макет погодного монитора -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/outputPan"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bodyMain"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/chosenCityName"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:lines="2"
-        android:textColor="@color/DarkMain"
-        android:textSize="@dimen/chosenCityTextSize"
-        android:textStyle="bold" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:id="@+id/tempText"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <TextView
+                android:id="@+id/chosenCityName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/bodyMain"
+                android:background="@color/colorPrimaryDark"
+                android:textSize="@dimen/chosenCityTextSize"
+                app:layout_collapseMode="parallax"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/DarkMain"
-        android:textSize="@dimen/TempTextSize" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <include layout="@layout/weather_info_display" />
+    </androidx.core.widget.NestedScrollView>
 
-    <TextView
-        android:id="@+id/windSpeedText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/DarkMain"
-        android:textSize="@dimen/WindTextSize" />
-
-    <ImageView
-        android:id="@+id/weatherImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center_horizontal|center_vertical"
-        android:adjustViewBounds="false"
-        android:contentDescription="@string/weather_img"
-        android:scaleType="fitCenter" />
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

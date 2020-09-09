@@ -34,6 +34,15 @@
     <string name="Hello_sub_text">I can show You the weather</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="change_city">Change City</string>
+    <string name="toolbarimg">ToolbarImg</string>
+    <string name="find_city">Find city</string>
+    <string name="chose_city">Chose city</string>
+    <string name="menu_history">HISTORY</string>
+    <string name="history">HISTORY</string>
+    <string name="find_city_name">City name in English...</string>
+    <string name="tempIndicator">tempIndicator</string>
+    <string name="windDirectionIndicator">windDirectionIndicator</string>
 
 
 </resources>

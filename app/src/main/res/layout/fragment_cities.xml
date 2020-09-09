@@ -16,7 +16,7 @@
         android:textAllCaps="true"
         android:lines="2"
         android:textColor="@color/DarkMain"
-        android:background="#ADF479"
+        android:background="@color/GreenBar"
         android:textSize="@dimen/choseCityText"
         android:textStyle="bold" />
 

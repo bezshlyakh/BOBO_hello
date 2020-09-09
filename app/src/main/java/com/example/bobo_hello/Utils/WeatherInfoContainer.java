@@ -7,6 +7,7 @@ public class WeatherInfoContainer implements Serializable {
     public String cityName = "";
     public String temperature = "";
     public String windSpeed = "";
+    public int windDirection = 0;
     public String icon = "";
     public boolean isTempOn = true;
     public boolean isWindOn = true;
