@@ -1,5 +1,6 @@
 package com.example.bobo_hello;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,15 +17,14 @@ import com.example.bobo_hello.Utils.Classifier;
 import com.example.bobo_hello.Utils.EventCityChanged;
 import com.example.bobo_hello.Utils.IRVOnItemClick;
 import com.example.bobo_hello.Utils.RecyclerDataAdapter;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 
 public class CitiesFindDialogFragment extends DialogFragment implements IRVOnItemClick {
 
     private RecyclerView recyclerView;
 
+    @SuppressLint("InflateParams")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_dialog_cities, null);
@@ -61,6 +61,7 @@ public class CitiesFindDialogFragment extends DialogFragment implements IRVOnIte
     private View.OnClickListener listener = view -> {
         dismiss();
         String currentCity = ((EditText)view).getText().toString();
+        ((EditText) view).setText("");
         saveCityToPreference(currentCity);
         EventBus.getDefault().post(new EventCityChanged(currentCity));
     };

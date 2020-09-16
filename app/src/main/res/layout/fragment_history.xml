@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- макет опций -->
+<!-- макет списка -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/AppInfoLayout"
+    android:id="@+id/hisFragLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bodyMain"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/chosenCityName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/InfoAppText"
+        android:text="@string/search_history_text"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:lines="2"
@@ -21,5 +19,11 @@
         android:background="@color/colorPrimaryDark"
         android:textSize="@dimen/choseCityText"
         android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cities_his_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/start_margin"/>
 
 </LinearLayout>
