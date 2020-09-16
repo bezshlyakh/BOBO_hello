@@ -1,4 +1,4 @@
-package com.example.bobo_hello;
+package com.example.bobo_hello.Utils;
 
 import android.app.NotificationManager;
 import android.app.Service;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.bobo_hello.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

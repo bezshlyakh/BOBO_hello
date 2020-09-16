@@ -15,15 +15,18 @@ import com.example.bobo_hello.Utils.Classifier;
 import com.example.bobo_hello.Utils.EventCityChanged;
 import com.example.bobo_hello.Utils.OneDayWeatherConnector;
 import com.example.bobo_hello.Utils.WeatherInfoContainer;
+import com.google.android.gms.maps.model.LatLng;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public class HomeFragment extends Fragment {
 
-    private String currentCity;
-    private final String DEFAULT_CITY = "Moscow";
+    private final float DEFAULT_LATITUDE = 55.75f;
+    private final float DEFAULT_LONGITUDE = 37.62f;
     private Classifier classifier;
+    private LatLng currentCoord;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,20 +44,21 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        currentCity = readFromPreference().getString("currentCity", DEFAULT_CITY);
-        setFragment(updateWeatherFrag(currentCity));
+        currentCoord = new LatLng( readFromPreference().getFloat("currentLatitude", DEFAULT_LATITUDE),
+                readFromPreference().getFloat("currentLongitude", DEFAULT_LONGITUDE));
+        setFragment(updateWeatherFrag(currentCoord));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        currentCity = readFromPreference().getString("currentCity", DEFAULT_CITY);
-        setFragment(updateWeatherFrag(currentCity));
+        currentCoord = new LatLng( readFromPreference().getFloat("currentLatitude", DEFAULT_LATITUDE),
+                readFromPreference().getFloat("currentLongitude", DEFAULT_LONGITUDE));
+        setFragment(updateWeatherFrag(currentCoord));
     }
 
-    private WeatherInfoFragment updateWeatherFrag(String city){
-        getWeatherContainer(getWeatherInfoFromServer(city));
-        return WeatherInfoFragment.create(getWeatherContainer(getWeatherInfoFromServer(city)));
+    private WeatherInfoFragment updateWeatherFrag(LatLng coord){
+        return WeatherInfoFragment.create(getWeatherContainer(getWeatherInfoFromServer(coord)));
     }
 
     private WeatherInfoContainer getWeatherContainer(OneDayWeatherConnector connector) {
@@ -68,8 +72,8 @@ public class HomeFragment extends Fragment {
         return container;
     }
 
-    private OneDayWeatherConnector getWeatherInfoFromServer(String cityItem) {
-        return new OneDayWeatherConnector(classifier, cityItem);
+    private OneDayWeatherConnector getWeatherInfoFromServer(LatLng target) {
+        return new OneDayWeatherConnector(target);
     }
 
     @Override
@@ -80,7 +84,7 @@ public class HomeFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
         public void onCityChanged(EventCityChanged eventCityChanged){
-        setFragment(updateWeatherFrag(eventCityChanged.city));
+        setFragment(updateWeatherFrag(eventCityChanged.cityCoord));
     }
 
     private SharedPreferences readFromPreference() {

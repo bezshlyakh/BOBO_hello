@@ -3,6 +3,7 @@ package com.example.bobo_hello;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +15,31 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bobo_hello.Utils.Classifier;
+import com.example.bobo_hello.Utils.CoordConverter;
 import com.example.bobo_hello.Utils.EventCityChanged;
 import com.example.bobo_hello.Utils.IRVOnItemClick;
 import com.example.bobo_hello.Utils.RecyclerDataAdapter;
+import com.google.android.gms.maps.model.LatLng;
+
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 public class CitiesFindDialogFragment extends DialogFragment implements IRVOnItemClick {
 
     private RecyclerView recyclerView;
+    private CoordConverter converter;
 
     @SuppressLint("InflateParams")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_dialog_cities, null);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Geocoder geocoder = new Geocoder(requireContext());
+        converter = new CoordConverter(geocoder);
     }
 
     private void initViews(View view) {
@@ -47,8 +59,15 @@ public class CitiesFindDialogFragment extends DialogFragment implements IRVOnIte
 
     @Override
     public void onItemClicked(String cityItem) {
-        saveCityToPreference(cityItem);
-        EventBus.getDefault().post(new EventCityChanged(cityItem));
+        LatLng cityCoord = null;
+        try {
+            cityCoord = converter.getCoordinatesByCityName(cityItem);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assert cityCoord != null;
+        saveCoordToPreference(cityCoord);
+        EventBus.getDefault().post(new EventCityChanged(cityCoord));
         dismiss();
     }
 
@@ -58,18 +77,26 @@ public class CitiesFindDialogFragment extends DialogFragment implements IRVOnIte
         initViews(view);
     }
 
-    private View.OnClickListener listener = view -> {
+    private final View.OnClickListener listener = view -> {
         dismiss();
         String currentCity = ((EditText)view).getText().toString();
         ((EditText) view).setText("");
-        saveCityToPreference(currentCity);
-        EventBus.getDefault().post(new EventCityChanged(currentCity));
+        LatLng coord = null;
+        try {
+            coord = converter.getCoordinatesByCityName(currentCity);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assert coord != null;
+        saveCoordToPreference(coord);
+        EventBus.getDefault().post(new EventCityChanged(coord));
     };
 
-    private void saveCityToPreference(String currentCity) {
+    private void saveCoordToPreference(LatLng coord) {
         SharedPreferences optionsPref = requireActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = optionsPref.edit();
-        editor.putString("currentCity", currentCity);
+        editor.putFloat("currentLatitude", (float) coord.latitude);
+        editor.putFloat("currentLongitude", (float) coord.longitude);
         editor.apply();
     }
 }

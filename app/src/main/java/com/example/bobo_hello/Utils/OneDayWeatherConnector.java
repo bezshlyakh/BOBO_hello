@@ -8,6 +8,7 @@ import com.example.bobo_hello.UI.SideNavigationItems.History.TemperatureEntity;
 import com.example.bobo_hello.UI.SideNavigationItems.History.WeatherHisSource;
 import com.example.bobo_hello.UI.SideNavigationItems.History.WeatherHistoryDao;
 import com.example.bobo_hello.weatherModel.WeatherRequest;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +17,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -24,8 +24,8 @@ public class OneDayWeatherConnector {
     private static final String TAG = "WEATHER";
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
     private static final String API_KEY = "3aa391c929cfb72a03bebcdf69fc4c8a";
+    private LatLng target;
     private String cityName;
-    private String cityId;
     private String temperature;
     private String pressure;
     private String humidity;
@@ -37,9 +37,8 @@ public class OneDayWeatherConnector {
     private TemperatureEntity temperatureEntity;
 
 
-    public OneDayWeatherConnector(Classifier classifier, String city) {
-        this.cityName = city;
-        this.cityId = classifier.getCityID(city);
+    public OneDayWeatherConnector(LatLng target) {
+        this.target = target;
         WeatherHistoryDao weatherHistoryDao = AppForDB
                 .getInstance()
                 .getEducationDao();
@@ -48,8 +47,7 @@ public class OneDayWeatherConnector {
         this.temperatureEntity = new TemperatureEntity();
 
         try {
-            if(!cityName.equals("")){
-                final URL uri = new URL(WEATHER_URL + "q=" + cityName + "&units=metric&appid=" + API_KEY);
+                final URL uri = new URL(WEATHER_URL + "lat=" + target.latitude + "&lon=" + target.longitude + "&units=metric&appid=" + API_KEY);
                 Thread th = new Thread(new Runnable() {
                     public void run() {
                         HttpsURLConnection urlConnection = null;
@@ -75,7 +73,6 @@ public class OneDayWeatherConnector {
                 });
                 th.start();
                 th.join();
-            }
         } catch (Exception e) {
             Log.e(TAG, "Fail URI", e);
             e.printStackTrace();
@@ -106,6 +103,7 @@ public class OneDayWeatherConnector {
     }
 
     private void setWeatherInfo(WeatherRequest weatherRequest) {
+        cityName = weatherRequest.getName();
         temperature = String.format(Locale.getDefault(), "%.1f", weatherRequest.getMain().getTemp());
         pressure = String.format(Locale.getDefault(), "%d", weatherRequest.getMain().getPressure());
         humidity = String.format(Locale.getDefault(), "%d", weatherRequest.getMain().getHumidity());
@@ -126,10 +124,6 @@ public class OneDayWeatherConnector {
     private String getCurrentTime(){
         @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat("MMM dd yyyy, h:mm");
         return date.format(Calendar.getInstance().getTime());
-    }
-
-    public String getCityId(String city) {
-        return cityId;
     }
 
     public String getCityName() {
@@ -159,4 +153,6 @@ public class OneDayWeatherConnector {
     public String getIcon() {
         return icon;
     }
+
+    public LatLng getLatLong(){ return target;}
 }

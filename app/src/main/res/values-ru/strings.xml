@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BOBO_hello</string>
-    <string name="helloText">Привет! Я Бобо!\nЯ расскажу тебе\n про погоду!</string>
+    <string name="helloText">Привет! Я Бобо! Я расскажу тебе  про погоду!</string>
     <string name="cityEnter">введи город</string>
     <string name="choseCityText">Выбери город</string>
     <string name="findCity">найти город</string>
@@ -32,8 +32,17 @@
     <string name="nav_header_title">Привет! Я Бобо</string>
     <string name="Hello_sub_text">Я могу рассказать тебе о погоде</string>
     <string name="nav_header_desc">лого</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="change_city">Change City</string>
+    <string name="helloTextLand">Привет! Я Бобо! Я расскажу тебе  про погоду!</string>
+    <string name="change_city">Изменить город</string>
+    <string name="find_city">Найти город</string>
+    <string name="chose_city">Выбрать город</string>
+    <string name="menu_history">История</string>
+    <string name="history">История</string>
+    <string name="find_city_name">Введите город на Английском</string>
+    <string name="map_nav">Карта</string>
+    <string name="chose_location_to_get_temperature">Выберите местоположение для отображения температуры</string>
+    <string name="latitude">широта</string>
+    <string name="longitude">долгота</string>
 
 
 </resources>

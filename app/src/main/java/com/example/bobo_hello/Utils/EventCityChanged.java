@@ -1,9 +1,11 @@
 package com.example.bobo_hello.Utils;
 
-public class EventCityChanged {
-    public final String city;
+import com.google.android.gms.maps.model.LatLng;
 
-    public EventCityChanged(String message) {
-        this.city = message;
+public class EventCityChanged {
+    public final LatLng cityCoord;
+
+    public EventCityChanged(LatLng coordinates) {
+        this.cityCoord = coordinates;
     }
 }

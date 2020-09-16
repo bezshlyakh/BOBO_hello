@@ -1,36 +1,48 @@
 package com.example.bobo_hello;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.bobo_hello.UI.SideNavigationItems.AppInfo.AppInfoFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.History.HistoryFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Home.HomeFragment;
+import com.example.bobo_hello.UI.SideNavigationItems.Map.MapFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.bobo_hello.Utils.EventCityChanged;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MainActivity extends AppCompatActivity {
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private CitiesFindDialogFragment findCityDialog;
+    private static final int PERMISSION_REQUEST_CODE = 10;
+    private LatLng currLocation;
+    private LocationManager mLocManager = null;
+    private final float DEFAULT_LATITUDE = 55.75f;
+    private final float DEFAULT_LONGITUDE = 37.62f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         findCityDialog = new CitiesFindDialogFragment();
         setHomeFragment();
         setOnClickForSideMenuItems();
-
         initNotificationChannel();
 
     }
@@ -58,18 +70,51 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_find_city) {
-            onClickCityDialog();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_find_city: {
+                onClickCityDialog();
+                return true;
+            }
+            case R.id.menu_cur_location: {
+                onCurrLocationClick();
+                saveCoordToPreference(currLocation);
+                EventBus.getDefault().post(new EventCityChanged(currLocation));
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void onClickCityDialog() {
         findCityDialog.show(getSupportFragmentManager(), "findCityDialog");
+    }
+
+    public void onCurrLocationClick(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Location loc = mLocManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            if(loc != null){
+                currLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
+            } else {
+                currLocation = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+            }
+        } else {
+            requestLocationPermissions();
+        }
+    }
+
+    private void requestLocationPermissions() {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    PERMISSION_REQUEST_CODE);
+        }
     }
 
     @Override
@@ -80,11 +125,17 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void setOnClickForSideMenuItems() {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home: {
                     setHomeFragment();
+                    drawer.closeDrawers();
+                    break;
+                }
+                case R.id.nav_map: {
+                    setMapFragment();
                     drawer.closeDrawers();
                     break;
                 }
@@ -113,6 +164,10 @@ public class MainActivity extends AppCompatActivity {
         setFragment(fragment);
     }
 
+    private void setMapFragment() {
+        setFragment(new MapFragment());
+    }
+
     private void setOptionsFragment() {
         setFragment(new OptionsFragment());
     }
@@ -139,6 +194,14 @@ public class MainActivity extends AppCompatActivity {
             NotificationChannel channel = new NotificationChannel("2", "name", importance);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private void saveCoordToPreference(LatLng coord) {
+        SharedPreferences optionsPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = optionsPref.edit();
+        editor.putFloat("currentLatitude", (float) coord.latitude);
+        editor.putFloat("currentLongitude", (float) coord.longitude);
+        editor.apply();
     }
 
 }
