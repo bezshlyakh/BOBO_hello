@@ -64,7 +64,7 @@ public class HistoryFragment extends Fragment {
     private WeatherHisSource getWeatherSource(){
         WeatherHistoryDao weatherHistoryDao = AppForDB
                 .getInstance()
-                .getEducationDao();
+                .getWeatherDao();
         return new WeatherHisSource(weatherHistoryDao);
     }
 

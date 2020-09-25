@@ -29,7 +29,7 @@ public class AppForDB extends Application {
                 .build();
     }
 
-    public WeatherHistoryDao getEducationDao() {
+    public WeatherHistoryDao getWeatherDao() {
         return db.getWeatherHistoryDao();
     }
 

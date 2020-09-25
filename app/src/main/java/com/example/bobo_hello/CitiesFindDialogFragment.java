@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CitiesFindDialogFragment extends DialogFragment implements IRVOnItemClick {
 
@@ -38,7 +39,7 @@ public class CitiesFindDialogFragment extends DialogFragment implements IRVOnIte
     @Override
     public void onStart() {
         super.onStart();
-        Geocoder geocoder = new Geocoder(requireContext());
+        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
         converter = new CoordConverter(geocoder);
     }
 

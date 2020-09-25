@@ -12,11 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.bobo_hello.Utils.Classifier;
 import com.example.bobo_hello.R;
-import com.example.bobo_hello.Utils.WeatherInfoContainer;
+import com.example.bobo_hello.WeatherServices.WeatherInfoContainer;
 
 public class WeatherInfoFragment extends Fragment {
     private TextView cityNameTextView, tempTextView, windTextView;
     private ImageView weatherImgView, windDirectionImg;
+    private final Classifier CLASSIFIRE = new Classifier();
 
     static WeatherInfoFragment create(WeatherInfoContainer weatherContainer) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();
@@ -24,17 +25,6 @@ public class WeatherInfoFragment extends Fragment {
         args.putSerializable("index", weatherContainer);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    int getIndex() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
-                .getSerializable("index"));
-        try {
-            assert weatherInfoContainer != null;
-            return weatherInfoContainer.position;
-        } catch (Exception e) {
-            return 0;
-        }
     }
 
     String getCityName() {
@@ -84,16 +74,6 @@ public class WeatherInfoFragment extends Fragment {
         return weatherInfoContainer.windDirection;
     }
 
-    Classifier getClassifier() {
-        WeatherInfoContainer weatherInfoContainer = (WeatherInfoContainer) (requireArguments()
-                .getSerializable("index"));
-        try {
-            assert weatherInfoContainer != null;
-            return weatherInfoContainer.classifier;
-        } catch (Exception e) {
-            return null;
-        }
-    }
     @Override
     @SuppressLint("Recycle")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -130,7 +110,7 @@ public class WeatherInfoFragment extends Fragment {
     }
 
     private void setWeatherImg() {
-        String iconName = getClassifier().getIconName(getIcon());
+        String iconName = CLASSIFIRE.getIconName(getIcon());
         int id = getResources().getIdentifier("com.example.bobo_hello:drawable/" + iconName, null, null);
         weatherImgView.setImageResource(id);
     }

@@ -24,7 +24,7 @@ public class CoordConverter {
             public void run() {
                 try {
                     final List<Address> addresses = GEOCODER.getFromLocation(target.latitude, target.longitude, 1);
-                    cityName = addresses.get(0).getAddressLine(0);
+                    cityName = addresses.get(0).getLocality();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

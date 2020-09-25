@@ -1,17 +1,21 @@
 package com.example.bobo_hello;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,6 +24,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.bobo_hello.UI.SideNavigationItems.AppInfo.AppInfoFragment;
@@ -27,11 +32,14 @@ import com.example.bobo_hello.UI.SideNavigationItems.History.HistoryFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Home.HomeFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Map.MapFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
+import com.example.bobo_hello.Utils.CoordConverter;
 import com.example.bobo_hello.Utils.EventCityChanged;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,11 +51,21 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager mLocManager = null;
     private final float DEFAULT_LATITUDE = 55.75f;
     private final float DEFAULT_LONGITUDE = 37.62f;
+    private int currFragID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initGUI();
+        if (savedInstanceState == null) {
+            checkCurrentFragment(currFragID);
+        }
+        setOnClickForSideMenuItems();
+        initNotificationChannel();
+    }
+
+    private void initGUI(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -56,12 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         findCityDialog = new CitiesFindDialogFragment();
-        setHomeFragment();
-        setOnClickForSideMenuItems();
-        initNotificationChannel();
-
+        mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
     @Override
@@ -128,35 +142,67 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     private void setOnClickForSideMenuItems() {
         navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.nav_home: {
-                    setHomeFragment();
-                    drawer.closeDrawers();
-                    break;
-                }
-                case R.id.nav_map: {
-                    setMapFragment();
-                    drawer.closeDrawers();
-                    break;
-                }
-                case R.id.nav_settings: {
-                    setOptionsFragment();
-                    drawer.closeDrawers();
-                    break;
-                }
-                case R.id.nav_history: {
-                    setHistoryFragment();
-                    drawer.closeDrawers();
-                    break;
-                }
-                case R.id.nav_app_info: {
-                    setAppInfoFragment();
-                    drawer.closeDrawers();
-                    break;
-                }
-            }
+            currFragID = item.getItemId();
+            checkCurrentFragment(currFragID);
             return true;
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("current fragment", currFragID);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putInt("current fragment", currFragID);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        currFragID = savedInstanceState.getInt("current fragment");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        currFragID = savedInstanceState.getInt("current fragment");
+        checkCurrentFragment(currFragID);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private void checkCurrentFragment(int id){
+        switch (id) {
+            case 0:
+            case R.id.nav_home: {
+                setHomeFragment();
+                drawer.closeDrawers();
+                break;
+            }
+            case R.id.nav_map: {
+                setMapFragment();
+                drawer.closeDrawers();
+                break;
+            }
+            case R.id.nav_settings: {
+                setOptionsFragment();
+                drawer.closeDrawers();
+                break;
+            }
+            case R.id.nav_history: {
+                setHistoryFragment();
+                drawer.closeDrawers();
+                break;
+            }
+            case R.id.nav_app_info: {
+                setAppInfoFragment();
+                drawer.closeDrawers();
+                break;
+            }
+        }
     }
 
     private void setHomeFragment() {
@@ -183,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.appFragmentContainer, fragment);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack("previous fragment");
         fragmentTransaction.commit();
     }
 

@@ -16,5 +16,7 @@
     <dimen name="start_margin">16dp</dimen>
     <dimen name="weatherImgSize">128dp</dimen>
     <dimen name="btn_size">64dp</dimen>
+    <dimen name="avatar_size">150dp</dimen>
+    <dimen name="TempMapTextSize">40sp</dimen>
 
 </resources>

@@ -40,9 +40,13 @@
     <string name="history">История</string>
     <string name="find_city_name">Введите город на Английском</string>
     <string name="map_nav">Карта</string>
-    <string name="chose_location_to_get_temperature">Выберите местоположение для отображения температуры</string>
     <string name="latitude">широта</string>
     <string name="longitude">долгота</string>
+    <string name="send_email">Отправить письмо</string>
+    <string name="appInfoHelloText">Привет! Я - Ксюша, разработчик приложения BBOB_hello, а Бобо - мой любимый пес. Приятно познакомиться!</string>
+    <string name="to_current_location">Текущее положение</string>
+    <string name="my_contacts_for_feedback_and_suggestions">Мои контакты для Ваших отзывов и предложений:</string>
+    <string name="chose_location_to_get_temperature">Длинное нажатие для выбора места</string>
 
 
 </resources>

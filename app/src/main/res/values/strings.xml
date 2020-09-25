@@ -48,9 +48,14 @@
     <string name="temperature_tv" translatable="false">temperature</string>
     <string name="last_update_data_tv" translatable="false">last update data</string>
     <string name="map_nav">MAP</string>
-    <string name="chose_location_to_get_temperature">Chose location to get temperature</string>
+    <string name="chose_location_to_get_temperature">Long tap to chose location</string>
     <string name="latitude">latitude</string>
     <string name="longitude">longitude</string>
     <string name="to_current_location">To current location</string>
+    <string name="send_email">Send email</string>
+    <string name="appInfoHelloText">Hi! I am Ksenia, the developer of BOBO-hello app, and Bobo is my lovely Dog. Nice to meet You!</string>
+    <string name="email" translatable="false">kc.bezshliakh@gmail.com</string>
+    <string name="my_contacts_for_feedback_and_suggestions">My contacts for feedback and suggestions:</string>
+    <string name="emailicon" translatable="false">emailIcon</string>
 
 </resources>
