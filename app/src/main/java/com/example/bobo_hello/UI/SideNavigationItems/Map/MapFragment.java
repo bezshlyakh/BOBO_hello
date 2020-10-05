@@ -37,6 +37,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private final float DEFAULT_LONGITUDE = 37.62f;
     private TextView tempTV;
     private WeatherModelHandler weatherModelHandler;
+    private MarkerOptions marker;
 
     @Nullable
     @Override
@@ -57,6 +58,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         weatherModelHandler = new WeatherModelHandler();
+        marker = new MarkerOptions();
     }
 
     private void initViews(View view){
@@ -92,26 +94,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 readFromPreference().getFloat("currentLongitude", DEFAULT_LONGITUDE));
         toCurrentLocation(currLocation);
         updateTemperatureIndicator(currLocation);
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                toCurrentLocation(latLng);
-                updateTemperatureIndicator(latLng);
-            }
+        mMap.setOnMapLongClickListener(latLng -> {
+            toCurrentLocation(latLng);
+            updateTemperatureIndicator(latLng);
         });
-
+        mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCityChanged(EventCityChanged eventCityChanged){
         toCurrentLocation(eventCityChanged.cityCoord);
+        updateTemperatureIndicator(eventCityChanged.cityCoord);
     }
 
 
     private void toCurrentLocation(LatLng target) {
         currLocation = target;
         moveCamera(currLocation);
-        addMarker(currLocation);
+        moveMarker(currLocation);
     }
 
     private void updateTemperatureIndicator(LatLng coord){
@@ -131,7 +131,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String temp = currCityTemp + "°C";
+        String temp = currCityTemp;
         tempTV.setText(temp);
     }
 
@@ -140,9 +140,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(target, (float) 10.0));
     }
 
-    private void addMarker(LatLng target){
-        mMap.addMarker(new MarkerOptions()
-                .position(target));
+    private void moveMarker(LatLng target){
+        mMap.clear();
+        mMap.addMarker(marker.position(target));
     }
 
     private SharedPreferences readFromPreference() {

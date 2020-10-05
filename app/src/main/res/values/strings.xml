@@ -57,5 +57,8 @@
     <string name="email" translatable="false">kc.bezshliakh@gmail.com</string>
     <string name="my_contacts_for_feedback_and_suggestions">My contacts for feedback and suggestions:</string>
     <string name="emailicon" translatable="false">emailIcon</string>
+    <string name="place_his_title">place</string>
+    <string name="last_temperature_title">temperature</string>
+    <string name="last_update_title">last update</string>
 
 </resources>

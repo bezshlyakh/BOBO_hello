@@ -23,7 +23,7 @@
             android:layout_weight="2"
             android:text="@string/city_name_tv"
             android:textAlignment="viewStart"
-            android:textSize="@dimen/choseCityText" />
+            android:textSize="@dimen/table_history_title_size" />
 
         <TextView
             android:id="@+id/lastTemperature"
@@ -32,7 +32,7 @@
             android:layout_weight="2"
             android:text="@string/temperature_tv"
             android:textAlignment="center"
-            android:textSize="@dimen/choseCityText" />
+            android:textSize="@dimen/table_history_title_size" />
 
         <TextView
             android:id="@+id/lastUpdateData"
@@ -41,7 +41,7 @@
             android:layout_weight="2"
             android:text="@string/last_update_data_tv"
             android:textAlignment="center"
-            android:textSize="@dimen/choseCityText" />
+            android:textSize="@dimen/table_history_title_size" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

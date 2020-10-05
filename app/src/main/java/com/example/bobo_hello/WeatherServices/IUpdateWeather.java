@@ -1,6 +1,6 @@
 package com.example.bobo_hello.WeatherServices;
 
-import com.example.bobo_hello.weatherModel.WeatherRequest;
+import com.example.bobo_hello.WeatherModels.OneDayModel.WeatherRequest;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

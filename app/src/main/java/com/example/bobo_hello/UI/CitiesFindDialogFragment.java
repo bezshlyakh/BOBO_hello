@@ -1,4 +1,4 @@
-package com.example.bobo_hello;
+package com.example.bobo_hello.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bobo_hello.R;
 import com.example.bobo_hello.Utils.Classifier;
 import com.example.bobo_hello.Utils.CoordConverter;
 import com.example.bobo_hello.Utils.EventCityChanged;

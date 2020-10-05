@@ -41,9 +41,9 @@ public class HomeFragment extends Fragment {
     private WeatherInfoContainer weatherInfoContainer;
     private ProgressBar progressBar;
     private CoordConverter converter;
-    private WeatherHisSource weatherHisSource;
-    private CityEntity cityEntity;
-    private TemperatureEntity temperatureEntity;
+//    private WeatherHisSource weatherHisSource;
+//    private CityEntity cityEntity;
+//    private TemperatureEntity temperatureEntity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initGUI(view);
-        initDBHandlers();
+//        initDBHandlers();
         weatherModelHandler = new WeatherModelHandler();
         weatherInfoContainer = new WeatherInfoContainer();
     }
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        saveWeatherInfoToDB(weatherInfoContainer);
+//        saveWeatherInfoToDB(weatherInfoContainer);
         progressBar.setVisibility(View.GONE);
         return WeatherInfoFragment.create(weatherInfoContainer);
     }
@@ -131,28 +131,28 @@ public class HomeFragment extends Fragment {
         return requireActivity().getPreferences(Context.MODE_PRIVATE);
     }
 
-    private void initDBHandlers(){
-        WeatherHistoryDao weatherHistoryDao = AppForDB
-                .getInstance()
-                .getWeatherDao();
-        this.weatherHisSource = new WeatherHisSource(weatherHistoryDao);
-        this.cityEntity = new CityEntity();
-        this.temperatureEntity = new TemperatureEntity();
-    }
+//    private void initDBHandlers(){
+//        WeatherHistoryDao weatherHistoryDao = AppForDB
+//                .getInstance()
+//                .getWeatherDao();
+//        this.weatherHisSource = new WeatherHisSource(weatherHistoryDao);
+//        this.cityEntity = new CityEntity();
+//        this.temperatureEntity = new TemperatureEntity();
+//    }
 
-    private void saveWeatherInfoToDB(WeatherInfoContainer connector){
-        cityEntity.cityName = connector.cityName;
-        weatherHisSource.addCity(cityEntity);
-        temperatureEntity.cityId = cityEntity.id;
-        temperatureEntity.temperature = connector.temperature;
-        temperatureEntity.date = getCurrentTime();
-        weatherHisSource.addTemp(temperatureEntity);
-    }
-
-    private String getCurrentTime(){
-        @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat("MMM dd yyyy, h:mm");
-        return date.format(Calendar.getInstance().getTime());
-    }
+//    private void saveWeatherInfoToDB(WeatherInfoContainer connector){
+//        cityEntity.cityName = connector.cityName;
+//        weatherHisSource.addCity(cityEntity);
+//        temperatureEntity.cityId = cityEntity.id;
+//        temperatureEntity.temperature = connector.temperature;
+//        temperatureEntity.date = getCurrentTime();
+//        weatherHisSource.addTemp(temperatureEntity);
+//    }
+//
+//    private String getCurrentTime(){
+//        @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat("MMM dd yyyy, h:mm");
+//        return date.format(Calendar.getInstance().getTime());
+//    }
 
 
 

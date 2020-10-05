@@ -18,5 +18,8 @@
     <dimen name="btn_size">64dp</dimen>
     <dimen name="avatar_size">150dp</dimen>
     <dimen name="TempMapTextSize">40sp</dimen>
+    <dimen name="table_history_title_size">12sp</dimen>
+    <dimen name="info_item_text_size">12sp</dimen>
+    <dimen name="weatherItemImgSize">96dp</dimen>
 
 </resources>

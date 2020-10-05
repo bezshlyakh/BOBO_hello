@@ -8,18 +8,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -27,19 +24,18 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.bobo_hello.UI.CitiesFindDialogFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.AppInfo.AppInfoFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.History.HistoryFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Home.HomeFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Map.MapFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
-import com.example.bobo_hello.Utils.CoordConverter;
 import com.example.bobo_hello.Utils.EventCityChanged;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 

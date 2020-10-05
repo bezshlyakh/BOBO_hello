@@ -42,7 +42,7 @@ public class WeatherInfoFragment extends Fragment {
                 .getSerializable("index"));
         assert weatherInfoContainer != null;
         if (weatherInfoContainer.isTempOn){
-            return weatherInfoContainer.temperature + " °C";
+            return weatherInfoContainer.temperature;
         } else return "";
     }
 

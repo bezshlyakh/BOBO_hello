@@ -6,6 +6,11 @@ public class WeatherHisSource {
 
     private final WeatherHistoryDao weatherHistoryDao;
     private List<CityAndTemperatureResult> cities;
+    private long cityEntityID;
+
+    public long getCityEntityID() {
+        return cityEntityID;
+    }
 
     public WeatherHisSource(WeatherHistoryDao weatherHistoryDao){
         this.weatherHistoryDao = weatherHistoryDao;
@@ -23,7 +28,7 @@ public class WeatherHisSource {
     }
 
     public void addCity(CityEntity cityEntity){
-        cityEntity.id = weatherHistoryDao.insertCity(cityEntity);
+        cityEntityID = weatherHistoryDao.insertCity(cityEntity);
         loadCities();
     }
 

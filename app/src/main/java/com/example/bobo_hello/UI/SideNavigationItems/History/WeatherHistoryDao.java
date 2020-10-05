@@ -15,7 +15,7 @@ public interface WeatherHistoryDao {
     long insertCity(CityEntity city);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertTemp(TemperatureEntity temperatureEntity);
+    void insertTemp(TemperatureEntity temperatureEntity);
 
     @Update
     void updateCityTemp(TemperatureEntity temperatureEntity);

@@ -10,7 +10,6 @@ public class CityEntity {
 
         public final static String ID = "id";
         public final static String CITY_NAME = "city_name";
-        //public final static String LAST_TEMP = "last_temperature";
 
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = ID)
@@ -18,8 +17,5 @@ public class CityEntity {
 
         @ColumnInfo(name = CITY_NAME)
         public String cityName;
-
-//        @ColumnInfo(name = LAST_TEMP)
-//        public String lastTemp;
 
 }
