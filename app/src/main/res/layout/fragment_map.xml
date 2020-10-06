@@ -5,7 +5,7 @@
     android:id="@+id/MapFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bodyMain">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/choseLocationTV"
@@ -18,7 +18,7 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:lines="2"
-        android:textColor="@color/bodyMain"
+        android:textColor="@color/white"
         android:background="@color/colorPrimaryDark"
         android:textSize="@dimen/choseCityText"
         android:textStyle="bold" />

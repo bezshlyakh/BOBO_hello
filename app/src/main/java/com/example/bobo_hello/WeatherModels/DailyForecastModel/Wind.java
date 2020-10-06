@@ -1,4 +1,4 @@
-package com.example.bobo_hello.WeatherModels.OneDayModel;
+package com.example.bobo_hello.WeatherModels.DailyForecastModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

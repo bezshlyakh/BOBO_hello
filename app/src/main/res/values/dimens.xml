@@ -20,6 +20,10 @@
     <dimen name="TempMapTextSize">40sp</dimen>
     <dimen name="table_history_title_size">12sp</dimen>
     <dimen name="info_item_text_size">12sp</dimen>
-    <dimen name="weatherItemImgSize">96dp</dimen>
+    <dimen name="weatherItemImgSize">24dp</dimen>
+    <dimen name="weather_item_padding">10dp</dimen>
+    <dimen name="weather_disp_temp_margin">64dp</dimen>
+    <dimen name="options_items_margin">64dp</dimen>
+    <dimen name="FAB_options_size">32dp</dimen>
 
 </resources>

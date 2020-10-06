@@ -43,9 +43,6 @@ public class Classifier implements Serializable {
         weatherImgBase.put("50n", "mist");
     }
 
-    public String getCityID(String cityName){
-        return citiesIDBase.get(cityName);
-    }
     public String getIconName(String icon){
         return weatherImgBase.get(icon);
     }

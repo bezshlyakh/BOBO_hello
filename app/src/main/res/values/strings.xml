@@ -60,5 +60,13 @@
     <string name="place_his_title">place</string>
     <string name="last_temperature_title">temperature</string>
     <string name="last_update_title">last update</string>
+    <string name="metric_oC">Metric (°C)</string>
+    <string name="english_oF">English (°F)</string>
+    <string name="temperature_measurement">Temperature measurement</string>
+    <string name="settings">settings</string>
+    <string name="location_on_start">Location on start</string>
+    <string name="current_location_text">current location</string>
+    <string name="custom_location_text">custom location</string>
+    <string name="add_city_FAB">add_city</string>
 
 </resources>

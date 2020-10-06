@@ -33,6 +33,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap = null;
     private LatLng currLocation;
     private String currCityTemp;
+    private final String METRIC_CHOSEN = "metricChosen";
+    private final String defaultMetric = "metric";
     private final float DEFAULT_LATITUDE = 55.75f;
     private final float DEFAULT_LONGITUDE = 37.62f;
     private TextView tempTV;
@@ -57,7 +59,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        weatherModelHandler = new WeatherModelHandler();
+        weatherModelHandler = new WeatherModelHandler(readFromPreference().getString(METRIC_CHOSEN, defaultMetric));
         marker = new MarkerOptions();
     }
 
@@ -119,7 +121,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void run() {
                 try {
-                    currCityTemp = weatherModelHandler.getOneDayWeatherContainer((float) coord.latitude, (float) coord.longitude).temperature;
+                    currCityTemp = weatherModelHandler.getWeatherContainer((float) coord.latitude, (float) coord.longitude)[0].temperature;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

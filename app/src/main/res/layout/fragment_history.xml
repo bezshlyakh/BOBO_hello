@@ -15,7 +15,7 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:lines="2"
-        android:textColor="@color/bodyMain"
+        android:textColor="@color/white"
         android:background="@color/colorPrimaryDark"
         android:textSize="@dimen/choseCityText"
         android:textStyle="bold" />

@@ -1,26 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- макет опций -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/optionsFragLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bodyMain"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/tempSwitch"
+    <TextView
+        android:id="@+id/settingsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:text="@string/temperatureSwitch"/>
+        android:background="@color/colorPrimaryDark"
+        android:lines="2"
+        android:text="@string/settings"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/bodyMain"
+        android:textSize="@dimen/choseCityText"
+        android:textStyle="bold" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/windSwitch"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:text="@string/windSpeedSwitch"/>
+        android:layout_marginTop="@dimen/start_margin"
+        android:elevation="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginEnd="@dimen/start_margin"
+                android:layout_marginTop="@dimen/start_margin"
+                android:layout_marginBottom="@dimen/start_margin"
+                android:text="@string/temperature_measurement"
+                android:textSize="@dimen/choseCityText"
+                android:textColor="@color/DarkMain"
+                android:textAllCaps="true"
+                android:background="@color/white"
+                />
+
+            <RadioGroup
+                android:id="@+id/RGMetricSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/options_items_margin"
+                android:layout_marginBottom="@dimen/start_margin">
+
+                <RadioButton
+                    android:id="@+id/RBMetric"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/choseCityText"
+                    android:checked="true"
+                    android:text="@string/metric_oC" />
+
+                <RadioButton
+                    android:id="@+id/RBFaringate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/choseCityText"
+                    android:checked="false"
+                    android:text="@string/english_oF" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/start_margin"
+        android:elevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginEnd="@dimen/start_margin"
+                android:layout_marginTop="@dimen/start_margin"
+                android:layout_marginBottom="@dimen/start_margin"
+                android:text="@string/location_on_start"
+                android:textSize="@dimen/choseCityText"
+                android:textColor="@color/DarkMain"
+                android:textAllCaps="true"
+                android:background="@color/white"
+                />
+
+            <RadioGroup
+                android:id="@+id/RGStartLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/options_items_margin"
+                android:layout_marginBottom="@dimen/start_margin">
+
+                <RadioButton
+                    android:id="@+id/RBCurrLocOnStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/choseCityText"
+                    android:checked="true"
+                    android:text="@string/current_location_text" />
+
+                <RadioButton
+                    android:id="@+id/RBCustomLocOnStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/choseCityText"
+                    android:checked="false"
+                    android:text="@string/custom_location_text" />
+
+            </RadioGroup>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/customCityEnter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/FABdefaultCity"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="@dimen/options_items_margin"
+                    android:hint="@string/find_city_name"
+                    android:layout_marginStart="@dimen/options_items_margin"
+                    android:saveEnabled="false"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/FABdefaultCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/customCityEnter"
+                    android:contentDescription="@string/add_city_FAB"
+                    android:elevation="@dimen/start_margin"
+                    android:scaleType="centerInside"
+                    style="@style/AppTheme"
+                    app:srcCompat="@drawable/fab_add"
+                    app:tint="@color/colorPrimaryDark"
+                    app:backgroundTint="@color/white"
+                    android:layout_marginBottom="@dimen/options_items_margin"
+                    />
+
+
+                <TextView
+                    android:id="@+id/customCityTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/customCityEnter"
+                    app:layout_constraintTop_toBottomOf="@id/FABdefaultCity"
+                    android:layout_marginStart="@dimen/options_items_margin"
+                    android:layout_marginTop="@dimen/start_margin"
+                    app:layout_constraintEnd_toEndOf="@id/FABdefaultCity"
+                    android:textSize="@dimen/choseCityText"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
 </LinearLayout>

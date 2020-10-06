@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class WeatherInfoContainer implements Serializable {
     public String cityName = "";
+    public String date = "";
     public String temperature = "";
     public String windSpeed = "";
     public int windDirection = 0;

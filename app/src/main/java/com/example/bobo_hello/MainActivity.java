@@ -17,11 +17,13 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -31,6 +33,7 @@ import com.example.bobo_hello.UI.SideNavigationItems.History.HistoryFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Home.HomeFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Map.MapFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
+import com.example.bobo_hello.Utils.CoordConverter;
 import com.example.bobo_hello.Utils.EventCityChanged;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
@@ -42,18 +45,21 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private CitiesFindDialogFragment findCityDialog;
-    private static final int PERMISSION_REQUEST_CODE = 10;
+    private static final int PERMISSION_REQUEST_CODE = 100;
     private LatLng currLocation;
     private LocationManager mLocManager = null;
     private final float DEFAULT_LATITUDE = 55.75f;
     private final float DEFAULT_LONGITUDE = 37.62f;
+    private final String TAG = "mainActivityError", ID_LOC_RB = "IDlocRB", LOC_CHOSEN = "locationChosen", NO_DEF_CITY = "no city chosen";
     private int currFragID;
+    private CoordConverter converter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initGUI();
+        initStartLocation();
         if (savedInstanceState == null) {
             checkCurrentFragment(currFragID);
         }
@@ -72,6 +78,25 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         findCityDialog = new CitiesFindDialogFragment();
         mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Geocoder geocoder = new Geocoder(this);
+        converter = new CoordConverter(geocoder);
+    }
+
+    private void initStartLocation(){
+        int lockID = readFromPreference().getInt(ID_LOC_RB, 0);
+        if(lockID != R.id.RBCurrLocOnStart){
+            String defCity = readFromPreference().getString(LOC_CHOSEN, NO_DEF_CITY);
+            try {
+                currLocation = converter.getCoordinatesByCityName(defCity);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Log.d(TAG, "GEO converter error - can't convert city name");
+                currLocation = new LatLng(DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
+            }
+        } else {
+            onCurrLocationClick();
+        }
+        saveCoordToPreference(currLocation);
     }
 
     @Override
@@ -103,27 +128,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCurrLocationClick(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Location loc = mLocManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-            if(loc != null){
-                currLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
-            } else {
-                currLocation = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
-            }
-        } else {
-            requestLocationPermissions();
-        }
-    }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-    private void requestLocationPermissions() {
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
             ActivityCompat.requestPermissions(this,
                     new String[]{
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
                     },
                     PERMISSION_REQUEST_CODE);
+        } else {
+            Location loc = mLocManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            if(loc != null){
+                currLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
+            } else {
+                currLocation = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+            }
         }
     }
 
@@ -245,5 +265,10 @@ public class MainActivity extends AppCompatActivity {
         editor.putFloat("currentLongitude", (float) coord.longitude);
         editor.apply();
     }
+
+    private SharedPreferences readFromPreference() {
+        return getPreferences(Context.MODE_PRIVATE);
+    }
+
 
 }
