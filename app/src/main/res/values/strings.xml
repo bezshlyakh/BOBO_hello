@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">BOBO_hello</string>
-    <string name="helloText">"HELLO! I'm Bobo!\nI can tell You about weather!    "</string>
+    <string name="helloText">"HELLO! I'm Bobo!\nI can tell You\n about weather!"</string>
+    <string name="helloTextLand">"HELLO! I'm Bobo!\nI can tell You about weather!"</string>
     <string name="cityEnter">type CITY</string>
-    <string name="choseCityText">Chose our city</string>
+    <string name="choseCityText">Chose Your city</string>
     <string name="findCity">Find City</string>
     <string name="outputUpperText">That is what I found on Your request!</string>
     <string name="cityChosen">moscow</string>
-    <string name="tempCurrent">25^C</string>
+    <string name="tempCurrent">25 °C</string>
     <string name="backToMainButton">Change city</string>
     <string name="radiobuttonCity1">Moscow</string>
     <string name="radiobuttonCity2">St.Petersburg</string>
@@ -16,6 +17,56 @@
     <string name="radiobuttonCity6">Paris</string>
     <string name="radiobuttonCity7">Madrid</string>
     <string name="radiobuttonCity8">Vienna</string>
-
+    <string name="windSpeed">wind: 3 m/sec</string>
+    <string name="chooseOptions">Choose options</string>
+    <string name="temperatureSwitch">Temperature</string>
+    <string name="windSpeedSwitch">Wind speed</string>
+    <string name="chooseOptionsToDisplay">Choose options to display</string>
+    <string name="submit">submit</string>
+    <string name="weather_img">weather_img</string>
+    <string name="empty_text">list is empty</string>
+    <string name="menu_home">HOME</string>
+    <string name="menu_options">SETTINGS</string>
+    <string name="menu_info">APP INFO</string>
+    <string name="InfoAppText">info about this App</string>
+    <string name="nav_header_desc">logo</string>
+    <string name="nav_header_title">Hello! I\'m BOBO</string>
+    <string name="Hello_sub_text">I can show You the weather</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="change_city">Change City</string>
+    <string name="toolbarimg" translatable="false">ToolbarImg</string>
+    <string name="find_city">Find city</string>
+    <string name="chose_city">Chose city</string>
+    <string name="menu_history">HISTORY</string>
+    <string name="history">HISTORY</string>
+    <string name="find_city_name">City name in English...</string>
+    <string name="tempIndicator" translatable="false">tempIndicator</string>
+    <string name="windDirectionIndicator" translatable="false">windDirectionIndicator</string>
+    <string name="search_history_text" translatable="false">search history</string>
+    <string name="city_name_tv" translatable="false">city name</string>
+    <string name="temperature_tv" translatable="false">temperature</string>
+    <string name="last_update_data_tv" translatable="false">last update data</string>
+    <string name="map_nav">MAP</string>
+    <string name="chose_location_to_get_temperature">Long tap to chose location</string>
+    <string name="latitude">latitude</string>
+    <string name="longitude">longitude</string>
+    <string name="to_current_location">To current location</string>
+    <string name="send_email">Send email</string>
+    <string name="appInfoHelloText">Hi! I am Ksenia, the developer of BOBO-hello app, and Bobo is my lovely Dog. Nice to meet You!</string>
+    <string name="email" translatable="false">kc.bezshliakh@gmail.com</string>
+    <string name="my_contacts_for_feedback_and_suggestions">My contacts for feedback and suggestions:</string>
+    <string name="emailicon" translatable="false">emailIcon</string>
+    <string name="place_his_title">place</string>
+    <string name="last_temperature_title">temperature</string>
+    <string name="last_update_title">last update</string>
+    <string name="metric_oC">Metric (°C)</string>
+    <string name="english_oF">English (°F)</string>
+    <string name="temperature_measurement">Temperature measurement</string>
+    <string name="settings">settings</string>
+    <string name="location_on_start">Location on start</string>
+    <string name="current_location_text">current location</string>
+    <string name="custom_location_text">custom location</string>
+    <string name="add_city_FAB">add_city</string>
 
 </resources>

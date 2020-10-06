@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/weather_info_display">
+
+    <ImageView
+            android:id="@+id/weatherImg"
+            android:layout_width="@dimen/weatherImgSize"
+            android:layout_height="@dimen/weatherImgSize"
+            android:contentDescription="@string/weather_img"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:id="@+id/tempIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/tempText"
+            app:layout_constraintTop_toBottomOf="@id/weatherImg"
+            android:layout_marginEnd="@dimen/start_margin"
+            app:srcCompat="@drawable/temp_icon"
+            android:contentDescription="@string/tempIndicator" />
+
+    <TextView
+            android:id="@+id/tempText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/weatherImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tempIndicator"
+            app:layout_constraintBottom_toBottomOf="@id/tempIndicator"
+            android:layout_marginStart="@dimen/weather_disp_temp_margin"
+            android:textAlignment="textStart"
+            android:textColor="@color/DarkMain"
+            android:textSize="@dimen/TempTextSize"/>
+
+    <ImageView
+            android:id="@+id/windDirectionIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/start_margin"
+            android:contentDescription="@string/windDirectionIndicator"
+            app:layout_constraintEnd_toEndOf="@+id/tempIndicator"
+            app:layout_constraintStart_toStartOf="@id/tempIndicator"
+            app:layout_constraintEnd_toStartOf="@id/tempText"
+            app:layout_constraintTop_toBottomOf="@id/tempIndicator"
+            app:srcCompat="@drawable/wind_direction" />
+
+    <TextView
+            android:id="@+id/windSpeedText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/weatherImg"
+            app:layout_constraintTop_toTopOf="@id/windDirectionIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/windDirectionIndicator"
+            android:layout_marginStart="@dimen/weather_disp_temp_margin"
+            android:textAlignment="textStart"
+            android:textColor="@color/DarkMain"
+            android:textSize="@dimen/WindTextSize"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/windSpeedText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/start_margin"
+        >
+        <include layout="@layout/daily_weather_list" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

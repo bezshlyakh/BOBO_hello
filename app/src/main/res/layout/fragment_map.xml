@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/MapFragmentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/choseLocationTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/chose_location_to_get_temperature"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:lines="2"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="@dimen/choseCityText"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tempOnMapCV"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:layout_marginTop="@dimen/start_margin"
+        android:shape="ring"
+        app:cardCornerRadius="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/blueTransp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choseLocationTV">
+
+        <TextView
+            android:id="@+id/tempOnMapTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="25°C"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/DarkMain"
+            android:textSize="@dimen/TempMapTextSize" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choseLocationTV"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimenCityItem">24sp</dimen>
+    <dimen name="nav_header_height">250dp</dimen>
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_vertical_margin">10dp</dimen>
+    <dimen name="nav_header_vertical_spacing">0dp</dimen>
+    <dimen name="Hello_text_size">32sp</dimen>
+    <dimen name="Hello_subtext_size">24sp</dimen>
+    <dimen name="chosenCityTextSize">24sp</dimen>
+    <dimen name="TempTextSize">40sp</dimen>
+    <dimen name="WindTextSize">16sp</dimen>
+    <dimen name="choseCityText">16sp</dimen>
+    <dimen name="changeCityBtnText">16sp</dimen>
+    <dimen name="fab_margin">10dp</dimen>
+    <dimen name="start_margin">16dp</dimen>
+    <dimen name="weatherImgSize">128dp</dimen>
+    <dimen name="btn_size">64dp</dimen>
+    <dimen name="avatar_size">150dp</dimen>
+    <dimen name="TempMapTextSize">40sp</dimen>
+    <dimen name="table_history_title_size">12sp</dimen>
+    <dimen name="info_item_text_size">12sp</dimen>
+    <dimen name="weatherItemImgSize">24dp</dimen>
+    <dimen name="weather_item_padding">10dp</dimen>
+    <dimen name="weather_disp_temp_margin">64dp</dimen>
+    <dimen name="options_items_margin">64dp</dimen>
+    <dimen name="FAB_options_size">32dp</dimen>
+
+</resources>

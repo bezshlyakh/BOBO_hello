@@ -7,4 +7,9 @@
     <color name="LightBlueMain">#68CFFF</color>
     <color name="lightGreen">#58F591</color>
     <color name="bodyMain">#FDF7E1</color>
+    <color name="GreenBar">#ADF479</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blueTransp">#8055FAFF</color>
+    <color name="tableTitle">#3F51B5</color>
+    <color name="transp_blue_for_forecast">#3BA6E0FF</color>
 </resources>

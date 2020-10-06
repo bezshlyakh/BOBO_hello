@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BOBO_hello</string>
-    <string name="helloText">Привет! Я Бобо!\nЯ расскажу тебе про погоду!</string>
+    <string name="helloText">Привет! Я Бобо! Я расскажу тебе  про погоду!</string>
     <string name="cityEnter">введи город</string>
     <string name="choseCityText">Выбери город</string>
     <string name="findCity">найти город</string>
     <string name="outputUpperText">Вот, что я нашел!</string>
     <string name="cityChosen">Москва</string>
-    <string name="tempCurrent">25^C</string>
+    <string name="tempCurrent">25 °C</string>
     <string name="backToMainButton">Сменить город</string>
     <string name="radiobuttonCity1">Москва</string>
     <string name="radiobuttonCity2">Санкт-Петербург</string>
@@ -17,6 +17,36 @@
     <string name="radiobuttonCity6">Париж</string>
     <string name="radiobuttonCity7">Мадрид</string>
     <string name="radiobuttonCity8">Венна</string>
+    <string name="windSpeed">ветер: 3 м/с</string>
+    <string name="chooseOptions">Настройки</string>
+    <string name="temperatureSwitch">Температура</string>
+    <string name="windSpeedSwitch">Скорость ветра</string>
+    <string name="chooseOptionsToDisplay">Выбери параметры для отображения</string>
+    <string name="submit">Применить настройки</string>
+    <string name="weather_img">weather_img</string>
+    <string name="empty_text">empty_text</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_options">Настройки</string>
+    <string name="menu_info">О приложении</string>
+    <string name="InfoAppText">Инофрмация о приложении</string>
+    <string name="nav_header_title">Привет! Я Бобо</string>
+    <string name="Hello_sub_text">Я могу рассказать тебе о погоде</string>
+    <string name="nav_header_desc">лого</string>
+    <string name="helloTextLand">Привет! Я Бобо! Я расскажу тебе  про погоду!</string>
+    <string name="change_city">Изменить город</string>
+    <string name="find_city">Найти город</string>
+    <string name="chose_city">Выбрать город</string>
+    <string name="menu_history">История</string>
+    <string name="history">История</string>
+    <string name="find_city_name">Введите город на Английском</string>
+    <string name="map_nav">Карта</string>
+    <string name="latitude">широта</string>
+    <string name="longitude">долгота</string>
+    <string name="send_email">Отправить письмо</string>
+    <string name="appInfoHelloText">Привет! Я - Ксюша, разработчик приложения BBOB_hello, а Бобо - мой любимый пес. Приятно познакомиться!</string>
+    <string name="to_current_location">Текущее положение</string>
+    <string name="my_contacts_for_feedback_and_suggestions">Мои контакты для Ваших отзывов и предложений:</string>
+    <string name="chose_location_to_get_temperature">Длинное нажатие для выбора места</string>
 
 
 </resources>
