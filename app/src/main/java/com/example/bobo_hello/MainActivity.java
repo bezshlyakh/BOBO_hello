@@ -14,12 +14,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -35,6 +40,7 @@ import com.example.bobo_hello.UI.SideNavigationItems.Map.MapFragment;
 import com.example.bobo_hello.UI.SideNavigationItems.Options.OptionsFragment;
 import com.example.bobo_hello.Utils.CoordConverter;
 import com.example.bobo_hello.Utils.EventCityChanged;
+import com.example.bobo_hello.Utils.WifiStateReceiver;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "mainActivityError", ID_LOC_RB = "IDlocRB", LOC_CHOSEN = "locationChosen", NO_DEF_CITY = "no city chosen";
     private int currFragID;
     private CoordConverter converter;
+    private BroadcastReceiver br;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
             checkCurrentFragment(currFragID);
         }
         setOnClickForSideMenuItems();
+
+        br = new WifiStateReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        registerReceiver(br, filter);
+
         initNotificationChannel();
     }
 
@@ -165,12 +178,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("current fragment", currFragID);
-    }
-
-    @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putInt("current fragment", currFragID);
@@ -183,10 +190,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        currFragID = savedInstanceState.getInt("current fragment");
-        checkCurrentFragment(currFragID);
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (br == null) {
+                Log.d("Receiver", "Can't unregister a receiver which was never registered");
+            } else {
+                unregisterReceiver(br);
+                br = null;
+            }
+        } catch(Exception err)  {
+            Log.e(err.getClass().getName(), err.getMessage(), err);
+            Log.e("Receiver not registered", "Couldn't get context");
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -269,6 +285,5 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences readFromPreference() {
         return getPreferences(Context.MODE_PRIVATE);
     }
-
 
 }
